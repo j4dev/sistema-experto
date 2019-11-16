@@ -10,4 +10,4 @@ Clonar el proyecto luego acceder a la carpeta del proyecto y ejecutar el comando
 
 Luego estará listo para ejecutarse con el comando.
 
-`npm run dev`
+`npm start`
