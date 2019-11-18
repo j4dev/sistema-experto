@@ -1,6 +1,6 @@
 <?php
     $servidor ='localhost';
     $username  = 'root';
-    $password = 'sistemas';
+    $password = '';
     $database = 'base_conocimiento';
 ?>
