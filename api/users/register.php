@@ -9,8 +9,8 @@
     $objson =json_decode($json);
 
     $user = $objson->usuario;
-    $correo = $objson->correo_us;
-    $tipo = $objson->tipo_us;
+    $correo = $objson->correo;
+    $tipo = $objson->tipo;
     $clave = $objson->pass;
 
 
@@ -18,9 +18,10 @@
     {
         $J=[];
         $I=0;
-        $sql = $mysqli->("INSERT INTO `usuario`(`NOMBRE_US`, `CLAVE_US`, `CORREO_US`, `TIPO_US`) 
-                VALUES ($usuario, $clase, $correo, $tipo)");
-        $result=$conn->query($sql);
+        $sql = "INSERT INTO `usuario`(`NOMBRE_US`, `CLAVE_US`, `CORREO_US`, `TIPO_US`) 
+                VALUES ('$user', '$clave', '$correo', '$tipo')";
+        $result=$mysqli->query($sql);
+
         if($result){
             $J[$I]=[
                 "Validacion"=>true
