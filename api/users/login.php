@@ -10,14 +10,16 @@
 
     $user = $objson->usuario;
     $clave = $objson->pass;
-
+    
 
     if($user != null)
     {
         $J=[];
         $I=0;
-        $sql = $mysqli->("SELECT NOMBRE_US, TIPO_US FROM USUARIO WHERE NOMBRE_US=$name AND CLAVE_US=$clave");
-        $result=$conn->query($sql);
+        $sql = "SELECT NOMBRE_US, TIPO_US, CORREO_US FROM USUARIO WHERE CORREO_US='$user' AND CLAVE_US='$clave'";
+
+        $result=$mysqli->query($sql);
+
         if($result->num_rows > 0){
             $J[$I]=[
                 "Validacion"=>true
