@@ -18,11 +18,13 @@
     {
         $J=[];
         $I=0;
+
         $sql = "INSERT INTO `usuario`(`NOMBRE_US`, `CLAVE_US`, `CORREO_US`, `TIPO_US`) 
                 VALUES ('$user', '$clave', '$correo', '$tipo')";
         $result=$mysqli->query($sql);
 
         if($result){
+            
             $J[$I]=[
                 "Validacion"=>true
             ];
