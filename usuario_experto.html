@@ -9,6 +9,15 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 
     <title>Usuario Experto</title>
@@ -27,7 +36,7 @@
                         <h5 class="card-title">Juan Adalbero Pérez Ríos </h5>
                         <p class="card-text">Correo:Juan@correo.com </p>
                         <p class="card-text">Tipo: Experto</p>
-                        <div class="text-right col-md-4" >
+                        <div class="text-right col-md-4">
                             <input href="#" type="button" class="btn btn-primary" value="Cerrar Sesión"></input>
                         </div>
                     </div>
@@ -36,42 +45,75 @@
             </div>
         </div>
     </div>
-    <div class="container" >
-        <ul class="nav justify-content-end">
-            <li class="nav-item col-md-3">
-                <input type="button" class="btn btn-primary" value="Añadir Regla"></input>
-            </li>
+    <div class="container">
+        <br>
+        <div class="nav justify-content-end">
             <li class="nav-item">
-                <input type="button" class="btn btn-primary" value="Listar mis Reglas"></input>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalForm">Añadir
+                    Regla</button>
             </li>
-        </ul>
-    </div>
+        </div>
 
-    <!--Tabla datos-->
+        <!--Tabla datos-->
+        <div class="table-responsive-sm">
+            <br><br><br>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col"># Regla</th>
+                        <th scope="col">Regla</th>
+                        <th scope="col">Antecedentes</th>
+                        <th scope="col" class="col-md-1"></i></th>
+                        <th scope="col" class="col-md-1"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td class="text-center"><i class="zmdi zmdi-edit zmdi-hc-2x"></i></td>
+                        <td class="text-center"><i class="zmdi zmdi-delete zmdi-hc-2x"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div class="table-responsive-sm" style="max-width: 1200px;">
-        <br><br><br>
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                    <th scope="col"># Regla</th>
-                    <th scope="col">Regla</th>
-                    <th scope="col">Antecedentes</th>
-                    <th scope="col" class="col-md-1"></i></th>
-                    <th scope="col" class="col-md-1"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td class="text-center"><i class="zmdi zmdi-edit zmdi-hc-2x"></i></td>
-                    <td class="text-center"><i class="zmdi zmdi-delete zmdi-hc-2x"></i></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
+        <div id="ModalForm" class="modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Regla</h1>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" method="POST" action="">
+                            <input type="hidden" name="_token" value="">
+                            <div class="form-group">
+                                <label class="control-label">Antecedentes:</label>
+                                <br><br><br>
+                                <div>
+                                    <input type="antecedente" class="form-control input-lg" name="antecedente" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Hipótesis:</label>
+                                <br><br><br>
+                                <div>
+                                    <input type="hipotesis" class="form-control input-lg" name="hipotesis">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                    <button type="" class="btn btn-success">Cancelar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>
