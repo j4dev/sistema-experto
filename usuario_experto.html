@@ -37,7 +37,7 @@
                         <p class="card-text">Correo:Juan@correo.com </p>
                         <p class="card-text">Tipo: Experto</p>
                         <div class="text-right col-md-4">
-                            <input href="#" type="button" class="btn btn-primary" value="Cerrar Sesión"></input>
+                            <input href="" type="button" class="btn btn-primary" value="Cerrar Sesión"></input>
                         </div>
                     </div>
                 </div>
@@ -49,8 +49,7 @@
         <br>
         <div class="nav justify-content-end">
             <li class="nav-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalForm">Añadir
-                    Regla</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalForm">AñadirRegla</button>
             </li>
         </div>
 
@@ -79,7 +78,7 @@
             </table>
         </div>
 
-
+        <!--Modal para registro de reglas-->
         <div id="ModalForm" class="modal fade">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -87,27 +86,23 @@
                         <h1 class="modal-title">Regla</h1>
                     </div>
                     <div class="modal-body">
-                        <form role="form" method="POST" action="">
-                            <input type="hidden" name="_token" value="">
+                        <form>
                             <div class="form-group">
-                                <label class="control-label">Antecedentes:</label>
-                                <br><br><br>
-                                <div>
-                                    <input type="antecedente" class="form-control input-lg" name="antecedente" value="">
-                                </div>
+                                <p >Antecedentes: </p>
+                                <input type="text" class="form-control" id="antecedentes" style="text-transform:uppercase;">
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Hipótesis:</label>
-                                <br><br><br>
-                                <div>
-                                    <input type="hipotesis" class="form-control input-lg" name="hipotesis">
-                                </div>
+                            <div class="text-center">
+                                    <i class="zmdi zmdi-plus-circle zmdi-hc-3x" ></i>
                             </div>
+                            
                             <div class="form-group">
-                                <div>
-                                    <button type="submit" class="btn btn-success">Guardar</button>
-                                    <button type="" class="btn btn-success">Cancelar</button>
-                                </div>
+                                <p>Hipótesis:</p>
+                                <input type="text" class="form-control" id="hipotesis" style="text-transform:uppercase;">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             </div>
                         </form>
                     </div>
