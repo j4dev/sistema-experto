@@ -31,9 +31,12 @@
         $aux_id = $last_id->fetch_assoc();
         $id_regla = $aux_id['id_regla'];
 
+        foreach ($tipo as $valor) {
+            $sql = "INSERT INTO `antecedentes`(`ID_REGLA`, `DESCRIP_ANT`) VALUES
+            ('$id_regla','$valor')";
+             $result=$mysqli->query($sql);
+        }
         
-        while()
-
         if($result){
             
             $J[$I]=[
