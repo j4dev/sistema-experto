@@ -24,8 +24,9 @@
         $I=0;
 
         $sql = "INSERT INTO `reglas`(`CONCLUSION`, `ID_USUARIO`) VALUES
-                ('$user','$conclusion')";
+                ('$conclusion','$user')";
         $result=$mysqli->query($sql);
+        while()
 
         if($result){
             
