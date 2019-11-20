@@ -50,6 +50,7 @@ function addRule() {
             }
         });
         const json = yield response.json();
+        yield getAll();
     });
 }
 function getAll() {

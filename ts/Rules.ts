@@ -45,7 +45,7 @@ async function addRule() {
         }
     });
     const json = await response.json();
-
+    await getAll();
 }
 
 async function getAll() {
