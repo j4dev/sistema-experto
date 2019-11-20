@@ -45,7 +45,7 @@ async function addRule() {
         }
     });
     const json = await response.json();
-    
+    listRules();
 }
 
 async function getAllRules() {
@@ -74,18 +74,21 @@ async function listRules() {
     const res = await getAllRules();
     var antecedente:string = "";
     var rule:string = "";
-    res[0].antecedentes.map(function (ante:any) {
+    console.log(res);
+    
+    res.Antedentes.map(function (ante:any) {
         antecedente = antecedente + "<li>"+ante+"</li>";
     });
     rule = rule + "<tr>"+
-    "<th scope=\"row\">"+res[0].id_regla+"</th>"+
-    "<td>"+res[0].conclusion+"</td>"+
+    "<th scope=\"row\">"+res.Id_regla+"</th>"+
+    "<td>"+res.Conclusion+"</td>"+
     "<td>"+antecedente+
     "</td>"+
     "<td class=\"text-center\"><i class=\"zmdi zmdi-edit zmdi-hc-2x\"></i></td>"+
     "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"></i></td>"+
     "</tr>";
-
+    console.log(rule);
+    
     var listado = document.body.querySelector("list_reglas");
     listado.innerHTML = rule;
 }
