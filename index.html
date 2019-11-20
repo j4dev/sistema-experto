@@ -11,6 +11,9 @@
 
     <!-- Main css -->
     <link rel="stylesheet" href="src/css/style.css">
+
+    <!-- JavaScript -->
+    <script src="./dist/Users.js"></script>
 </head>
 <body>
     <div><h1 class="title">Sistema Experto en (aqui va el GRAN TEMA!!)</h1></div>
@@ -27,19 +30,19 @@
 
                     <div class="signin-form">
                         <h2 class="form-title">Iniciar Sesión</h2>
-                        <form method="POST" class="register-form" id="login-form">
+                        
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Correo Electrónico"/>
+                                <input type="text" name="your_name" id="correo_us" placeholder="Correo Electrónico"/>
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Contraseña"/>
+                                <input type="password" id="pass_us" placeholder="Contraseña"/>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Iniciar Sesión"/>
+                                <input type="submit" name="signin" id="signin" class="form-submit"  onclick="loginUser()" value="Iniciar Sesión"/>
                             </div>
-                        </form>
+                        
                     </div>
                 </div>
             </div>

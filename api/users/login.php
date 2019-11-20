@@ -23,8 +23,10 @@
         $result=$mysqli->query($sql);
 
         if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
             $J[$I]=[
-                "Validacion"=>true
+                "Validacion"=>true,
+                "tipo"=>$row['TIPO_US']
             ];
             echo json_encode($J);
         }
