@@ -26,6 +26,12 @@
         $sql = "INSERT INTO `reglas`(`CONCLUSION`, `ID_USUARIO`) VALUES
                 ('$conclusion','$user')";
         $result=$mysqli->query($sql);
+
+        $last_id = $mysqli->query("SELECT LAST_INSERT_ID() AS id_regla");
+        $aux_id = $last_id->fetch_assoc();
+        $id_regla = $aux_id['id_regla'];
+
+        
         while()
 
         if($result){
