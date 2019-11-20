@@ -10,20 +10,19 @@
     $objson =json_decode($json);
 
     /*Datos de la regla*/
-    $user = $objson->usuario;
     $regla = $objson->regla;
     /* */
 
-    if($user != null)
+    if($regla != null)
     {
         $J=[];
         $I=0;
 
-        $sql = "Delete from antecedentes where ID_REGLA='$regla'";
+        $sql = "DELETE FROM antecedentes WHERE ID_REGLA='$regla'";
         
         $result=$mysqli->query($sql);
 
-        $sql = "Delete from reglas where ID_REGLA='$regla'";
+        $sql = "DELETE FROM reglas WHERE  ID_REGLA='$regla'";
 
         $result=$mysqli->query($sql);
 
