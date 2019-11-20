@@ -14,16 +14,31 @@ function addInput() {
     
 }
 
-function addRule() {
-    var antecedentes: Array<string> = [];
+async function addRule() {
+    
+    var antecedentes: Array<any> = [];
     var id = "";
     for (let i = 1; i <= inputTotal; i++) {
         id = "#i"+i.toString();
         var dato = document.querySelector<HTMLInputElement>(id).value.toString();
-
-        antecedentes.push(dato);  
-        console.log(dato);      
+       
+        antecedentes[0] = {i:dato}; 
     }
-    console.log(antecedentes);
-    
+    var hipotesis  = document.querySelector<HTMLInputElement>("#hipotesis").value.toString();
+    var data = {
+        
+        hipotesis: hipotesis,
+        antecedentes: antecedentes
+    };
+console.log(JSON.stringify(data));
+    var url = "http://localhost:8080/SistemaExperto/api/rules/insertRules.php";
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const json = await response.json();
+    console.log(json);
 }
