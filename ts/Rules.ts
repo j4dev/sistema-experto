@@ -8,3 +8,7 @@ function addInput() {
     antece.appendChild(input);
     
 }
+
+function addRule() {
+    
+}
