@@ -1,5 +1,10 @@
+/*
+*   Funcion que realiza peticion POST
+*   y realizar el login de los usuarios
+*/
 async function loginUser() {
-
+    console.log("hola");
+    
     var correo = document.querySelector<HTMLInputElement>("#correo_us").value.toString();
     var passw = document.querySelector<HTMLInputElement>("#pass_us").value.toString();
 
@@ -25,3 +30,39 @@ async function loginUser() {
     }
 
 }
+
+/*
+*   Funcion que realiza peticion POST
+*   y realizar el registro de usuarios
+*/
+async function registerUser() {
+
+    var nombres = document.querySelector<HTMLInputElement>("#nombres_reg").value.toString();
+    var correo = document.querySelector<HTMLInputElement>("#email_reg").value.toString();
+    var passw = document.querySelector<HTMLInputElement>("#pass_reg").value.toString();
+    var select = document.querySelector<HTMLInputElement>("#select_reg");
+    var tipo = select.value;
+    
+    /*var url = "http://localhost/sistemaexperto/api/users/login.php";
+    var data = {
+        usuario:correo,
+        pass: passw
+    };
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const json = await response.json();
+    console.log(response);
+    
+    if (json.tipo === "Experto") {
+        window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
+    } else {
+        window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+    }*/
+
+}
+
