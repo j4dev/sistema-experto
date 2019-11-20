@@ -5,20 +5,22 @@
 var inputTotal = 1;
 function addInput() {
     inputTotal = inputTotal + 1;
+    var id = "i" + inputTotal.toString();
     let antece = document.querySelector("#antecedentes");
     let input = document.createElement("INPUT");
     input.setAttribute("class", "form-control");
-    input.setAttribute("id", inputTotal.toString());
+    input.setAttribute("id", id);
     input.setAttribute("style", "text-transform:uppercase;");
     antece.appendChild(input);
 }
 function addRule() {
     var antecedentes = [];
     var id = "";
-    for (let i = 1; i < inputTotal; i++) {
-        //id = "\'input[name=\""+i.toString()+"\"]\'";
-        //var dato = (<HTMLInputElement> document.getElementById(id)).value.toString();
-        antecedentes.push();
+    for (let i = 1; i <= inputTotal; i++) {
+        id = "#i" + i.toString();
+        var dato = document.querySelector(id).value.toString();
+        antecedentes.push(dato);
+        console.log(dato);
     }
     console.log(antecedentes);
 }

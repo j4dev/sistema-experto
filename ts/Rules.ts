@@ -8,7 +8,7 @@ function addInput() {
     let antece = document.querySelector<HTMLInputElement>("#antecedentes");
     let input = document.createElement("INPUT");
     input.setAttribute("class","form-control");
-    input.setAttribute("id",inputTotal.toString());
+    input.setAttribute("id",id);
     input.setAttribute("style","text-transform:uppercase;");
     antece.appendChild(input);
     
@@ -17,11 +17,12 @@ function addInput() {
 function addRule() {
     var antecedentes: Array<string> = [];
     var id = "";
-    for (let i = 1; i < inputTotal; i++) {
+    for (let i = 1; i <= inputTotal; i++) {
         id = "#i"+i.toString();
         var dato = document.querySelector<HTMLInputElement>(id).value.toString();
 
-        antecedentes.push(dato);        
+        antecedentes.push(dato);  
+        console.log(dato);      
     }
     console.log(antecedentes);
     
