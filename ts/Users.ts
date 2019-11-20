@@ -79,5 +79,7 @@ async function registerUser() {
 }
 
 function getUserLocal() {
-    
+    var user = localStorage.getItem("id");
+
+    console.log(user);
 }

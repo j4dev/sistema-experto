@@ -24,7 +24,7 @@
         $I=0;
 
         $sql = "INSERT INTO `reglas`(`CONCLUSION`, `ID_USUARIO`) VALUES
-                ('','')";
+                ('$user','$conclusion')";
         $result=$mysqli->query($sql);
 
         if($result){

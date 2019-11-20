@@ -29,7 +29,7 @@ function loginUser() {
             }
         });
         const json = yield response.json();
-        console.log(json);
+        localStorage.setItem("user", JSON.stringify(json[0]));
         if (json[0].Validacion) {
             if (json[0].tipo === "Experto") {
                 window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
@@ -66,7 +66,6 @@ function registerUser() {
             }
         });
         const json = yield response.json();
-        console.log(response);
         if (json[0].Validacion) {
             if (tipo_us === "Experto") {
                 window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
@@ -76,5 +75,9 @@ function registerUser() {
             }
         }
     });
+}
+function getUserLocal() {
+    var user = localStorage.getItem("id");
+    console.log(user);
 }
 //# sourceMappingURL=Users.js.map
