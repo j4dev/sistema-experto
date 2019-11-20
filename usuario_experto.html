@@ -25,6 +25,7 @@
 </head>
 
 <body>
+
     <div class="container">
         <div class="card mb-3" style="max-width: 900px;">
             <div class="row no-gutters">
@@ -32,18 +33,13 @@
                     <img src="src/images/experto.png" class="card-img" alt="img_experto">
                 </div>
                 <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Juan Adalbero Pérez Ríos </h5>
-                        <p class="card-text">Correo:Juan@correo.com </p>
-                        <p class="card-text">Tipo: Experto</p>
-                        <div class="text-right col-md-4">
-                            <input href="" type="button" class="btn btn-primary" value="Cerrar Sesión"></input>
-                        </div>
+                    <div class="card-body" id="datos_us" >
+
                     </div>
                 </div>
                 <script>
-                    getUserLocal();
-                </script>
+                        getUserLocal();
+                    </script>
             </div>
         </div>
     </div>
@@ -51,7 +47,8 @@
         <br>
         <div class="nav justify-content-end">
             <li class="nav-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalForm">Añadir Regla</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalForm">Añadir
+                    Regla</button>
             </li>
         </div>
 
@@ -90,16 +87,18 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <p >Antecedentes: </p>
-                                <input type="text" class="form-control" id="antecedentes" style="text-transform:uppercase;">
+                                <p>Antecedentes: </p>
+                                <input type="text" class="form-control" id="antecedentes"
+                                    style="text-transform:uppercase;">
                             </div>
                             <div class="text-center">
-                                    <i class="zmdi zmdi-plus-circle zmdi-hc-3x" ></i>
+                                <i class="zmdi zmdi-plus-circle zmdi-hc-3x"></i>
                             </div>
-                            
+
                             <div class="form-group">
                                 <p>Hipótesis:</p>
-                                <input type="text" class="form-control" id="hipotesis" style="text-transform:uppercase;">
+                                <input type="text" class="form-control" id="hipotesis"
+                                    style="text-transform:uppercase;">
                             </div>
 
                             <div class="form-group">

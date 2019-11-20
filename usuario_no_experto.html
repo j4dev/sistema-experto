@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="src/css/style.css">
+    <script src="./dist/Users.js"></script>
     <title>Usuario no Experto</title>
 </head>
 
@@ -18,17 +19,13 @@
                 <div class="col-md-2">
                     <img src="src/images/no_experto.jpg" class="card-img" alt="img_experto">
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Luis Fernando Ramirez Ortega </h5>
-                        <p class="card-text">Correo: Luis@outlook.com </p>
-                        <p class="card-text">Tipo: No experto</p>
-                        <div class="text-right">
-                            <a href="#" class="btn btn-link">Cerrar Sesión</a>
-                        </div>
-                    </div>
-                </div>
 
+                <div class="col-md-8" id="datos_us">
+
+                </div>
+                <script>
+                        getUserLocal();
+                </script>
             </div>
         </div>
 

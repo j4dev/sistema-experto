@@ -27,7 +27,8 @@
             $J[$I]=[
                 "Validacion"=>true,
                 "tipo"=>$row['TIPO_US'],
-                "nombre_us"=>$row['NOMBRE_US']
+                "nombre_us"=>$row['NOMBRE_US'],
+                "correo"=>$row['CORREO_US']
             ];
             echo json_encode($J);
         }

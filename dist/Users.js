@@ -66,6 +66,8 @@ function registerUser() {
             }
         });
         const json = yield response.json();
+        /*SE ALAMACENA EN LA MEMORIA INTERNA DEL NAVEGADOR PARA NO HACER OTRA PETICION */
+        localStorage.setItem("user", JSON.stringify(json[0]));
         if (json[0].Validacion) {
             if (tipo_us === "Experto") {
                 window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
@@ -77,7 +79,18 @@ function registerUser() {
     });
 }
 function getUserLocal() {
-    var user = localStorage.getItem("id");
+    var datos = document.querySelector("#datos_us");
+    var user = JSON.parse(localStorage.getItem("user"));
+    var usuario = "<h5 class=\"card-title\" id=\"nombre_us\" >" + user.nombre_us + " </h5>" +
+        "<p class=\"card-text\">Correo: " + user.correo + "</p>" +
+        "<p class=\"card-text\">Tipo: " + user.tipo + "</p><br>" +
+        "<div class=\"text-right col-md-4\">" +
+        "<input  type=\"button\" class=\"btn btn-primary\" value=\"Cerrar Sesión\" onClick=\"closeSession()\"></input>" +
+        "</div> <br>";
     console.log(user);
+    datos.innerHTML = usuario;
+}
+function closeSession() {
+    window.location.href = "http://localhost/sistemaexperto/";
 }
 //# sourceMappingURL=Users.js.map
