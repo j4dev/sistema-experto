@@ -46,12 +46,14 @@ async function registerUser() {
     var tipo_us = select.value;
 
     var url = "http://localhost/sistemaexperto/api/users/register.php";
+
     var data = {
         usuario:nombres_us,
         correo:correo_us,
         pass: pass_us,
         tipo:tipo_us
     };
+
     const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -60,7 +62,7 @@ async function registerUser() {
         }
     });
     const json = await response.json();
-    console.log(response);
+    
     if (json[0].Validacion) {
 
         if (tipo_us === "Experto") {
