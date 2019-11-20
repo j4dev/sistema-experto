@@ -3,7 +3,6 @@
 *   y realizar el login de los usuarios
 */
 async function loginUser() {
-    console.log("hola");
     
     var correo = document.querySelector<HTMLInputElement>("#correo_us").value.toString();
     var passw = document.querySelector<HTMLInputElement>("#pass_us").value.toString();
@@ -21,13 +20,16 @@ async function loginUser() {
         }
     });
     const json = await response.json();
-    console.log(response);
+    console.log(json);
     
-    if (json.tipo === "Experto") {
-        window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
-    } else {
-        window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+    if (json[0].Validacion) {
+        if (json[0].tipo === "Experto") {
+            window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
+        } else {
+            window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+        }
     }
+
 
 }
 
@@ -37,16 +39,18 @@ async function loginUser() {
 */
 async function registerUser() {
 
-    var nombres = document.querySelector<HTMLInputElement>("#nombres_reg").value.toString();
-    var correo = document.querySelector<HTMLInputElement>("#email_reg").value.toString();
-    var passw = document.querySelector<HTMLInputElement>("#pass_reg").value.toString();
+    var nombres_us = document.querySelector<HTMLInputElement>("#nombres_reg").value.toString();
+    var correo_us = document.querySelector<HTMLInputElement>("#email_reg").value.toString();
+    var pass_us = document.querySelector<HTMLInputElement>("#pass_reg").value.toString();
     var select = document.querySelector<HTMLInputElement>("#select_reg");
-    var tipo = select.value;
-    
-    /*var url = "http://localhost/sistemaexperto/api/users/login.php";
+    var tipo_us = select.value;
+
+    var url = "http://localhost/sistemaexperto/api/users/register.php";
     var data = {
-        usuario:correo,
-        pass: passw
+        usuario:nombres_us,
+        correo:correo_us,
+        pass: pass_us,
+        tipo:tipo_us
     };
     const response = await fetch(url, {
         method: "POST",
@@ -57,12 +61,15 @@ async function registerUser() {
     });
     const json = await response.json();
     console.log(response);
-    
-    if (json.tipo === "Experto") {
-        window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
-    } else {
-        window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
-    }*/
+    if (json[0].Validacion) {
+
+        if (tipo_us === "Experto") {
+            window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
+        } else {
+            window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+        }
+    }
+
 
 }
 

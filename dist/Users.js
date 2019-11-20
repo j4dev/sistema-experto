@@ -14,7 +14,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 */
 function loginUser() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("hola");
         var correo = document.querySelector("#correo_us").value.toString();
         var passw = document.querySelector("#pass_us").value.toString();
         var url = "http://localhost/sistemaexperto/api/users/login.php";
@@ -30,12 +29,14 @@ function loginUser() {
             }
         });
         const json = yield response.json();
-        console.log(response);
-        if (json.tipo === "Experto") {
-            window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
-        }
-        else {
-            window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+        console.log(json);
+        if (json[0].Validacion) {
+            if (json[0].tipo === "Experto") {
+                window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
+            }
+            else {
+                window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+            }
         }
     });
 }
@@ -45,31 +46,35 @@ function loginUser() {
 */
 function registerUser() {
     return __awaiter(this, void 0, void 0, function* () {
-        var nombres = document.querySelector("#nombres_reg").value.toString();
-        var correo = document.querySelector("#email_reg").value.toString();
-        var passw = document.querySelector("#pass_reg").value.toString();
+        var nombres_us = document.querySelector("#nombres_reg").value.toString();
+        var correo_us = document.querySelector("#email_reg").value.toString();
+        var pass_us = document.querySelector("#pass_reg").value.toString();
         var select = document.querySelector("#select_reg");
-        var tipo = select.value;
-        /*var url = "http://localhost/sistemaexperto/api/users/login.php";
+        var tipo_us = select.value;
+        var url = "http://localhost/sistemaexperto/api/users/register.php";
         var data = {
-            usuario:correo,
-            pass: passw
+            usuario: nombres_us,
+            correo: correo_us,
+            pass: pass_us,
+            tipo: tipo_us
         };
-        const response = await fetch(url, {
+        const response = yield fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
-        const json = await response.json();
+        const json = yield response.json();
         console.log(response);
-        
-        if (json.tipo === "Experto") {
-            window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
-        } else {
-            window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
-        }*/
+        if (json[0].Validacion) {
+            if (tipo_us === "Experto") {
+                window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
+            }
+            else {
+                window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+            }
+        }
     });
 }
 //# sourceMappingURL=Users.js.map
