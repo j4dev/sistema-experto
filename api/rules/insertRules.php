@@ -16,6 +16,7 @@
 
     /* Datos de los antecedentes*/
     $tipo = $objson->vec_antecedentes;
+    
     /* */
 
     if($user != null)

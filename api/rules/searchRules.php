@@ -10,8 +10,8 @@
     $objson =json_decode($json);
 
     /*Datos del usuario*/
-   // $user = $objson->usuario;
-   $user = '1'; 
+    $user = $objson->usuario;
+   // $user = '1'; 
    /* */
 
     if($user != null)

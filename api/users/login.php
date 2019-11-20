@@ -18,7 +18,7 @@
         $J=[];
         $I=0;
         
-        $sql = "SELECT NOMBRE_US, TIPO_US, CORREO_US FROM USUARIO WHERE CORREO_US='$user' AND CLAVE_US='$clave'";
+        $sql = "SELECT ID_USUARIO, NOMBRE_US, TIPO_US, CORREO_US FROM USUARIO WHERE CORREO_US='$user' AND CLAVE_US='$clave'";
 
         $result=$mysqli->query($sql);
 
@@ -28,7 +28,8 @@
                 "Validacion"=>true,
                 "tipo"=>$row['TIPO_US'],
                 "nombre_us"=>$row['NOMBRE_US'],
-                "correo"=>$row['CORREO_US']
+                "correo"=>$row['CORREO_US'],
+                "id_us"=>$row['ID_USUARIO']
             ];
             echo json_encode($J);
         }

@@ -26,3 +26,31 @@ function addRule() {
     console.log(antecedentes);
     
 }
+
+async function getRulesByid() {
+    
+    var url = "http://localhost/sistemaexperto/api/users/searchRules.php";
+    var user = JSON.parse(localStorage.getItem("user"));
+    var data = {
+        usuario:user.id_us,
+    };
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const json = await response.json();
+
+    localStorage.setItem("reglas", JSON.stringify(json[0]));
+
+    if (json[0].Validacion) {
+        if (json[0].tipo === "Experto") {
+            window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
+        } else {
+            window.location.href = "http://localhost/sistemaexperto/usuario_no_experto.html";
+        }
+    }
+
+}
