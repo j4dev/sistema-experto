@@ -26,7 +26,8 @@
             $row = $result->fetch_assoc();
             $J[$I]=[
                 "Validacion"=>true,
-                "tipo"=>$row['TIPO_US']
+                "tipo"=>$row['TIPO_US'],
+                "nombre_us"=>$row['NOMBRE_US']
             ];
             echo json_encode($J);
         }

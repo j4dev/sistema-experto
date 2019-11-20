@@ -1,3 +1,4 @@
+
 /*
 *   Funcion que realiza peticion POST
 *   y realizar el login de los usuarios
@@ -21,7 +22,9 @@ async function loginUser() {
         }
     });
     const json = await response.json();
-    
+
+    localStorage.setItem("user", JSON.stringify(json[0]));
+
     if (json[0].Validacion) {
         if (json[0].tipo === "Experto") {
             window.location.href = "http://localhost/sistemaexperto/usuario_experto.html";
@@ -75,3 +78,6 @@ async function registerUser() {
 
 }
 
+function getUserLocal() {
+    
+}
