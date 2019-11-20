@@ -8,6 +8,7 @@ async function loginUser() {
     var passw = document.querySelector<HTMLInputElement>("#pass_us").value.toString();
 
     var url = "http://localhost/sistemaexperto/api/users/login.php";
+
     var data = {
         usuario:correo,
         pass: passw
@@ -20,7 +21,6 @@ async function loginUser() {
         }
     });
     const json = await response.json();
-    console.log(json);
     
     if (json[0].Validacion) {
         if (json[0].tipo === "Experto") {
