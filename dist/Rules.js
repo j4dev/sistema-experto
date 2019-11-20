@@ -50,13 +50,13 @@ function addRule() {
             }
         });
         const json = yield response.json();
-        yield getAll();
     });
 }
-function getAll() {
+function getAllRules() {
     return __awaiter(this, void 0, void 0, function* () {
         var user = JSON.parse(localStorage.getItem("user"));
         var url = "http://localhost/sistemaexperto/api/rules/searchRules.php";
+        console.log("hola");
         var data = {
             usuario: user.id_us
         };
@@ -68,7 +68,38 @@ function getAll() {
             }
         });
         const json = yield response.json();
-        console.log(json);
+        return json;
     });
 }
+function listRules() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield getAllRules();
+        var antecedente = "";
+        var rule = "";
+        res[0].antecedentes.map(function (ante) {
+            antecedente = antecedente + "<li>" + ante + "</li>";
+        });
+        rule = rule + "<tr>" +
+            "<th scope=\"row\">" + res[0].id_regla + "</th>" +
+            "<td>" + res[0].conclusion + "</td>" +
+            "<td>" + antecedente +
+            "</td>" +
+            "<td class=\"text-center\"><i class=\"zmdi zmdi-edit zmdi-hc-2x\"></i></td>" +
+            "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"></i></td>" +
+            "</tr>";
+        var listado = document.body.querySelector("list_reglas");
+        listado.innerHTML = rule;
+    });
+}
+/*<tr>
+<th scope="row">1</th>
+<td>Mark</td>
+<td>
+    <li>hola</li>
+    <li>hola</li>
+    <li>hola</li>
+</td>
+<td class="text-center"><i class="zmdi zmdi-edit zmdi-hc-2x"></i></td>
+<td class="text-center"><i class="zmdi zmdi-delete zmdi-hc-2x"></i></td>
+</tr>*/ 
 //# sourceMappingURL=Rules.js.map

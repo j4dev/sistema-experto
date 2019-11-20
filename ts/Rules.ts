@@ -45,12 +45,13 @@ async function addRule() {
         }
     });
     const json = await response.json();
-    await getAll();
+    
 }
 
-async function getAll() {
+async function getAllRules() {
     var user = JSON.parse(localStorage.getItem("user"));
     var url = "http://localhost/sistemaexperto/api/rules/searchRules.php";
+    console.log("hola");
     
     var data = {
         usuario: user.id_us
@@ -64,6 +65,38 @@ async function getAll() {
         }
     });
     const json = await response.json();
-    console.log(json);
+    return json;
     
 }
+
+
+async function listRules() {
+    const res = await getAllRules();
+    var antecedente:string = "";
+    var rule:string = "";
+    res[0].antecedentes.map(function (ante:any) {
+        antecedente = antecedente + "<li>"+ante+"</li>";
+    });
+    rule = rule + "<tr>"+
+    "<th scope=\"row\">"+res[0].id_regla+"</th>"+
+    "<td>"+res[0].conclusion+"</td>"+
+    "<td>"+antecedente+
+    "</td>"+
+    "<td class=\"text-center\"><i class=\"zmdi zmdi-edit zmdi-hc-2x\"></i></td>"+
+    "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"></i></td>"+
+    "</tr>";
+
+    var listado = document.body.querySelector("list_reglas");
+    listado.innerHTML = rule;
+}
+/*<tr>
+<th scope="row">1</th>
+<td>Mark</td>
+<td>
+    <li>hola</li>
+    <li>hola</li>
+    <li>hola</li>
+</td>
+<td class="text-center"><i class="zmdi zmdi-edit zmdi-hc-2x"></i></td>
+<td class="text-center"><i class="zmdi zmdi-delete zmdi-hc-2x"></i></td>
+</tr>*/
