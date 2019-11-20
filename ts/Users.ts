@@ -80,6 +80,7 @@ async function registerUser() {
 
 }
 
+/* TOMA LOS DATOS GUARDADOS EN EL LOCAL STORAGE PARA ARMAR EL PERFIL DE USUARIO */
 function getUserLocal() {
 
     var datos = document.querySelector<HTMLInputElement>("#datos_us");
@@ -91,7 +92,6 @@ function getUserLocal() {
     "<div class=\"text-right col-md-4\">"+
     "<input  type=\"button\" class=\"btn btn-primary\" value=\"Cerrar Sesión\" onClick=\"closeSession()\"></input>"+
     "</div> <br>"
-    console.log(user);
     
     datos.innerHTML = usuario;
 }

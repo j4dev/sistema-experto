@@ -1,1 +1,1 @@
-{"version":3,"file":"Rules.js","sourceRoot":"","sources":["../ts/Rules.ts"],"names":[],"mappings":""}
+{"version":3,"file":"Rules.js","sourceRoot":"","sources":["../ts/Rules.ts"],"names":[],"mappings":";AAAA;;GAEG;AACH,SAAS,QAAQ;IACb,IAAI,MAAM,GAAG,QAAQ,CAAC,aAAa,CAAmB,eAAe,CAAC,CAAC;IACvE,IAAI,KAAK,GAAG,QAAQ,CAAC,aAAa,CAAC,OAAO,CAAC,CAAC;IAE5C,MAAM,CAAC,WAAW,CAAC,KAAK,CAAC,CAAC;AAE9B,CAAC"}

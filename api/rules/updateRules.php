@@ -18,7 +18,7 @@
     $tipo = $objson->vec_antecedentes;
     /* */
 
-    if($user != null)
+    if($regla != null)
     {
         $J=[];
         $I=0;
