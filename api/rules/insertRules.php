@@ -34,7 +34,7 @@
         foreach ($tipo as $valor) {
             $sql = "INSERT INTO `antecedentes`(`ID_REGLA`, `DESCRIP_ANT`) VALUES
             ('$id_regla','$valor')";
-             $result=$mysqli->query($sql);
+            $result=$mysqli->query($sql);
         }
         
         if($result){

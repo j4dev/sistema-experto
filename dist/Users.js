@@ -66,7 +66,7 @@ function registerUser() {
             }
         });
         const json = yield response.json();
-        /*SE ALAMACENA EN LA MEMORIA INTERNA DEL NAVEGADOR PARA NO HACER OTRA PETICION */
+        /*SE ALMACENA EN LA MEMORIA INTERNA DEL NAVEGADOR PARA NO HACER OTRA PETICION */
         localStorage.setItem("user", JSON.stringify(json[0]));
         if (json[0].Validacion) {
             if (tipo_us === "Experto") {

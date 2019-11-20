@@ -28,7 +28,7 @@
 
         foreach ($tipo as $valor) {
             $sql="Update antecedentes Set DESCRIPT_ANT='$valor' where ID_REGLA='$regla'";
-             $result=$mysqli->query($sql);
+            $result=$mysqli->query($sql);
         }
         
         if($result){
