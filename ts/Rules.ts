@@ -4,6 +4,7 @@
 var inputTotal = 1;
 function addInput() {
     inputTotal = inputTotal + 1 ;
+    var id = "i"+inputTotal.toString();
     let antece = document.querySelector<HTMLInputElement>("#antecedentes");
     let input = document.createElement("INPUT");
     input.setAttribute("class","form-control");
@@ -14,8 +15,14 @@ function addInput() {
 }
 
 function addRule() {
-    var idInput = "#1";
-    var input = document.querySelector<HTMLInputElement>(idInput).value.toString();
-    console.log(input);
+    var antecedentes: Array<string> = [];
+    var id = "";
+    for (let i = 1; i < inputTotal; i++) {
+        id = "#i"+i.toString();
+        var dato = document.querySelector<HTMLInputElement>(id).value.toString();
+
+        antecedentes.push(dato);        
+    }
+    console.log(antecedentes);
     
 }

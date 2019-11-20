@@ -13,8 +13,13 @@ function addInput() {
     antece.appendChild(input);
 }
 function addRule() {
-    var idInput = "#1";
-    var input = document.querySelector(idInput).value.toString();
-    console.log(input);
+    var antecedentes = [];
+    var id = "";
+    for (let i = 1; i < inputTotal; i++) {
+        //id = "\'input[name=\""+i.toString()+"\"]\'";
+        //var dato = (<HTMLInputElement> document.getElementById(id)).value.toString();
+        antecedentes.push();
+    }
+    console.log(antecedentes);
 }
 //# sourceMappingURL=Rules.js.map
