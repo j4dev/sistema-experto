@@ -9,31 +9,23 @@
 
     $objson =json_decode($json);
 
-    /*Datos del usuario*/
-   $user = $objson->usuario;
-   //$user = 1;
+    /*Datos de la regla*/
+   //$id_rule = $objson->id_regla;
+   $id_rule = 1;
 
-   /* */
-    if($user != null)
+    if($id_rule != null)
     {
         $J=[];
         $I=0;
-        $L=[];
-        $P=0;
 
-        $result=$mysqli->query("SELECT ID_REGLA,CONCLUSION FROM reglas WHERE ID_USUARIO='$user'");
-        $cont_regla = $result->num_rows;
-
-        while($cont_regla>0){
-          $fila = $result->fetch_assoc();
-          $id_regla = $fila["ID_REGLA"];
-          $conclusion = $fila["CONCLUSION"];
-          
-
-          $antecedente=$mysqli->query("SELECT ID_ANTECEDENTES,DESCRIP_ANT  FROM antecedentes WHERE ID_REGLA='$id_regla'");
+        $result=$mysqli->query("SELECT ID_REGLA,CONCLUSION FROM reglas WHERE ID_REGLA='$id_rule'");
+        $fila_ant = $result->fetch_assoc();
+        $id_regla = $fila_ant["ID_REGLA"];
+        $conclusion_regla = $fila_ant["CONCLUSION"];
+        
+        $antecedente=$mysqli->query("SELECT ID_ANTECEDENTES,DESCRIP_ANT  FROM antecedentes WHERE ID_REGLA='$id_rule'");
           $cont = $antecedente->num_rows;
 
-          $I=0;
           while($cont>0){ //para recorrer los antecedentes
             $fila_ant = $antecedente->fetch_assoc();
             $descripc_ant = $fila_ant["DESCRIP_ANT"];
@@ -46,19 +38,12 @@
             $I++;
             $cont--;
         }
-          $L[$P]=[
-          "id_regla"=>$id_regla,
-          "conclusion"=>$conclusion,
-          "antecedentes"=>$J
-          ];
-          $P++;
-          $cont_regla--;
-          
-        }
         
           $H= [
             "validacion"=>true,
-            "reglas" => $L
+            "id_regla"=>$id_regla,
+            "conclusion"=>$conclusion_regla,
+            "reglas" => $J
           ];
 
         echo json_encode($H);
