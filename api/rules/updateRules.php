@@ -23,11 +23,11 @@
         $J=[];
         $I=0;
 
-        $sql="Update reglas Set CONCLUSION='$conclusion' where ID_REGLA='$regla'";
+        $sql="UPDATE reglas SET CONCLUSION='$conclusion' WHERE ID_REGLA='$regla'";
         $result=$mysqli->query($sql);
 
         foreach ($tipo as $valor) {
-            $sql="Update antecedentes Set DESCRIPT_ANT='$valor' where ID_REGLA='$regla'";
+            $sql="UPDATE antecedentes SET DESCRIPT_ANT='$valor' WHERE ID_REGLA='$regla'";
             $result=$mysqli->query($sql);
         }
         
