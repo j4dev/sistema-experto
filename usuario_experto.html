@@ -33,12 +33,12 @@
                     <img src="src/images/experto.png" class="card-img" alt="img_experto">
                 </div>
                 <div class="col-md-8">
-                    <div class="card-body" id="datos_us" >
+                    <div class="card-body" id="datos_us">
 
                     </div>
                 </div>
                 <script>
-                        getUserLocal();
+                    getUserLocal();
                 </script>
             </div>
         </div>
@@ -53,6 +53,9 @@
         </div>
 
         <!--Tabla datos-->
+        <script >
+            listRules();
+        </script>
         <div class="table-responsive-sm">
             <br><br><br>
             <table class="table table-sm">
@@ -66,17 +69,7 @@
                     </tr>
                 </thead>
                 <tbody id="list_reglas">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>
-                            <li>hola</li>
-                            <li>hola</li>
-                            <li>hola</li>
-                        </td>
-                        <td class="text-center"><i class="zmdi zmdi-edit zmdi-hc-2x"></i></td>
-                        <td class="text-center"><i class="zmdi zmdi-delete zmdi-hc-2x"></i></td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -89,11 +82,10 @@
                         <h1 class="modal-title">Regla</h1>
                     </div>
                     <div class="modal-body">
-                            <div class="form-group">
-                                <p>Antecedentes: </p>
-                                <div id="antecedentes">
-                                <input type="text" class="form-control" id="i1"
-                                    style="text-transform:uppercase;">
+                        <div class="form-group">
+                            <p>Antecedentes: </p>
+                            <div id="antecedentes">
+                                <input type="text" class="form-control" id="i1" style="text-transform:uppercase;">
                                 <div id="antecedentes">
 
                                 </div>
@@ -109,13 +101,14 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success" onclick="addRule()" data-dismiss="modal">Guardar</button>
+                                <button type="submit" class="btn btn-success" onclick="addRule()"
+                                    data-dismiss="modal">Guardar</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 </body>
 
 </html>

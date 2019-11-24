@@ -57,7 +57,6 @@ function getAllRules() {
     return __awaiter(this, void 0, void 0, function* () {
         var user = JSON.parse(localStorage.getItem("user"));
         var url = "http://localhost/sistemaexperto/api/rules/searchRules.php";
-        console.log("hola");
         var data = {
             usuario: user.id_us
         };
@@ -77,32 +76,22 @@ function listRules() {
         const res = yield getAllRules();
         var antecedente = "";
         var rule = "";
-        console.log(res);
-        res.Antedentes.map(function (ante) {
-            antecedente = antecedente + "<li>" + ante + "</li>";
+        res.reglas.map(function (rules) {
+            rules.antecedentes.map(function (ante) {
+                antecedente = antecedente + "<li>" + ante.antecedente + "</li>";
+            });
+            rule = rule + "<tr>" +
+                "<th scope=\"row\">" + rules.id_regla + "</th>" +
+                "<td>" + rules.conclusion + "</td>" +
+                "<td>" + antecedente +
+                "</td>" +
+                "<td class=\"text-center\"><i class=\"zmdi zmdi-edit zmdi-hc-2x\" onClick=\"editRule(" + rules.id_regla + ")\"></i></td>" +
+                "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\" onClick=\"deleteRule(" + rules.id_regla + ")\"></i></td>" +
+                "</tr>";
+            antecedente = "";
         });
-        rule = rule + "<tr>" +
-            "<th scope=\"row\">" + res.Id_regla + "</th>" +
-            "<td>" + res.Conclusion + "</td>" +
-            "<td>" + antecedente +
-            "</td>" +
-            "<td class=\"text-center\"><i class=\"zmdi zmdi-edit zmdi-hc-2x\"></i></td>" +
-            "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"></i></td>" +
-            "</tr>";
-        console.log(rule);
-        var listado = document.body.querySelector("list_reglas");
+        var listado = document.body.querySelector("#list_reglas");
         listado.innerHTML = rule;
     });
 }
-/*<tr>
-<th scope="row">1</th>
-<td>Mark</td>
-<td>
-    <li>hola</li>
-    <li>hola</li>
-    <li>hola</li>
-</td>
-<td class="text-center"><i class="zmdi zmdi-edit zmdi-hc-2x"></i></td>
-<td class="text-center"><i class="zmdi zmdi-delete zmdi-hc-2x"></i></td>
-</tr>*/ 
 //# sourceMappingURL=Rules.js.map

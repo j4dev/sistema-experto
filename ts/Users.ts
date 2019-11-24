@@ -22,7 +22,8 @@ async function loginUser() {
         }
     });
     const json = await response.json();
-
+    
+    
     localStorage.setItem("user", JSON.stringify(json[0]));
 
     if (json[0].Validacion) {
@@ -86,6 +87,7 @@ function getUserLocal() {
     var datos = document.querySelector<HTMLInputElement>("#datos_us");
     
     var user = JSON.parse(localStorage.getItem("user"));
+    
     var usuario = "<h5 class=\"card-title\" id=\"nombre_us\" >"+user.nombre_us+" </h5>"+
     "<p class=\"card-text\">Correo: "+user.correo+"</p>"+
     "<p class=\"card-text\">Tipo: "+user.tipo+"</p><br>"+

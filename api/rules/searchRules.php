@@ -10,7 +10,7 @@
     $objson =json_decode($json);
 
     /*Datos del usuario*/
-   $user = $objson->usuario;
+    $user = $objson->usuario;
    //$user = 1;
 
    /* */
@@ -58,7 +58,7 @@
         
           $H= [
             "validacion"=>true,
-            "regla" => $L
+            "reglas" => $L
           ];
 
         echo json_encode($H);
