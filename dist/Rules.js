@@ -50,6 +50,8 @@ function addRule() {
             }
         });
         const json = yield response.json();
+        document.querySelector("#i1").value = "";
+        document.querySelector("#hipotesis").value = "";
         listRules();
     });
 }

@@ -16,7 +16,7 @@ function addInput() {
 }
 
 async function addRule() {
-
+    
     var antecedentes: Array<any> = [];
     var id = "";
     for (let i = 1; i <= inputTotal; i++) {
@@ -45,6 +45,10 @@ async function addRule() {
         }
     });
     const json = await response.json();
+    
+    document.querySelector<HTMLInputElement>("#i1").value = "";
+    document.querySelector<HTMLInputElement>("#hipotesis").value = "";
+    
     listRules();
 }
 
