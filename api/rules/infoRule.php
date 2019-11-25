@@ -10,8 +10,8 @@
     $objson =json_decode($json);
 
     /*Datos de la regla*/
-   //$id_rule = $objson->id_regla;
-   $id_rule = 1;
+    $id_rule = $objson->id_regla;
+    //$id_rule = 1;
 
     if($id_rule != null)
     {
