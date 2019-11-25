@@ -48,7 +48,7 @@
 
         echo json_encode($H);
     }else{
-        $J=["Validacion"=>false];
+        $J=["validacion"=>false];
         echo json_encode($J);
       }
     $mysqli->close();

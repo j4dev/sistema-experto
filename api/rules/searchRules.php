@@ -32,7 +32,8 @@
 
           $antecedente=$mysqli->query("SELECT ID_ANTECEDENTES,DESCRIP_ANT  FROM antecedentes WHERE ID_REGLA='$id_regla'");
           $cont = $antecedente->num_rows;
-
+          
+          $J=[];
           $I=0;
           while($cont>0){ //para recorrer los antecedentes
             $fila_ant = $antecedente->fetch_assoc();
@@ -63,7 +64,7 @@
 
         echo json_encode($H);
     }else{
-        $J=["Validacion"=>false];
+        $J=["validacion"=>false];
         echo json_encode($J);
       }
     $mysqli->close();
