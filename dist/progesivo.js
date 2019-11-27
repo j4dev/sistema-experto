@@ -21,34 +21,6 @@ function requestFirstRule() {
         return json;
     });
 }
-function requestRulesT(id_regla, id_ant) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var url = "http://localhost/sistemaexperto/api/progresivo/getRule.php";
-        var data = {
-            id_regla: id_regla,
-            id_antecedente: id_ant
-        };
-        console.log(JSON.stringify(data));
-        const response = yield fetch(url, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-        const json = yield response.json();
-        if (json[0].validacion) {
-            var pregunta = "<p class=\"alert alert-warning text-center\">¿" + json[0].antecedente + "?</p>" +
-                "<div class=\"col text-center\">" +
-                "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestRules(" + json[0].id_regla_sig + "," + json[0].id_antecedente_sig + ")\">Si</button>" +
-                "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestRules(" + json[0].id_regla_sig + "," + json[0].id_antecedente_sig + ")\">No</button>" +
-                "</div>";
-        }
-        else {
-            var pregunta = "<p class=\"alert alert-warning text-center\">PROBLEMAS EN LA COMUNICACION CON LA API</p>";
-        }
-    });
-}
 function requestRulesF(id_regla, id_ant, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var url = "http://localhost/sistemaexperto/api/progresivo/getRule.php";
@@ -57,6 +29,7 @@ function requestRulesF(id_regla, id_ant, res) {
             id_antecedente: id_ant,
             respuesta: res
         };
+        console.log(JSON.stringify(data));
         const response = yield fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
@@ -74,8 +47,8 @@ function requestAllRules(id_r, id_a, res) {
         if (response[0].validacion) {
             var pregunta = "<p class=\"alert alert-warning text-center\">¿" + response[0].antecedente + "?</p>" +
                 "<div class=\"col text-center\">" +
-                "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + ")\">Si</button>" +
-                "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + ")\">No</button>" +
+                "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + true + ")\">Si</button>" +
+                "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + false + ")\">No</button>" +
                 "</div>";
         }
         else {
