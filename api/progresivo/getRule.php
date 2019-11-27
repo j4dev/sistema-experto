@@ -17,7 +17,6 @@
     {
         $J=[];
         $I=0;
- 
         $regla_actual = $mysqli->query("SELECT `CONCLUSION` FROM `reglas` WHERE `ID_REGLA`='$id_regla'");
         $fila1 = $regla_actual->fetch_assoc();
         $conclusion = $fila1['CONCLUSION'];

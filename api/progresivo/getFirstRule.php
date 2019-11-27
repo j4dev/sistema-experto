@@ -10,7 +10,7 @@
         $I=0;
 
         $primera_regla=$mysqli->query("SELECT MIN(ID_REGLA) AS id_min_regla, `CONCLUSION` FROM reglas");
-       
+    
         $fila1 = $primera_regla->fetch_assoc();
         $id_regla = $fila1['id_min_regla'];
         $conclu_regla = $fila1['CONCLUSION'];
