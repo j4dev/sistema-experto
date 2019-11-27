@@ -9,6 +9,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="src/css/style.css">
     <script src="./dist/Users.js"></script>
+    <script src="./dist/progesivo.js"></script>
     <title>Usuario no Experto</title>
 </head>
 
@@ -24,17 +25,15 @@
 
                 </div>
                 <script>
-                        getUserLocal();
+                    firstQuestion();
+                    getUserLocal();
                 </script>
             </div>
         </div>
-
-        <div  >
-            <p class="alert alert-warning text-center">¿Es estudiante?</p>
-            <div class="col text-center">
-                <button class="btn btn-success btn-lg" type="button">Si</button>
-                <button class="btn btn-danger btn-lg" type="button">No</button>
-            </div>
+        <h3>Pregunta</h3>
+        <div id="pregunta" >
+                
+            
         </div>
         <div>
             <h3>Resultado</h3>
