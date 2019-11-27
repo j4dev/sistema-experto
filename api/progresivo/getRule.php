@@ -10,7 +10,7 @@
     $objson =json_decode($json);
 
     $id_regla = $objson->id_regla;
-    $id_antecedente = $objson->$id_antecedente;
+    $id_antecedente = $objson->id_antecedente;
 
 
     if($id_regla != null)
@@ -18,30 +18,38 @@
         $J=[];
         $I=0;
  
-        $regla_actual = $mysqli->query("SELECT MIN(ID_REGLA) AS id_min_regla, `CONCLUSION` FROM reglas");
-        $antecedentet = $mysqli->query("SELECT * FROM reglas WHERE `ID_REGLA` = (SELECT MIN(`ID_REGLA`) FROM reglas WHERE `ID_REGLA` > 1)");
-       
-        $fila1 = $primera_regla->fetch_assoc();
-        $id_regla = $fila1['id_min_regla'];
-        $conclu_regla = $fila1['CONCLUSION'];
+        $regla_actual = $mysqli->query("SELECT `CONCLUSION` FROM `reglas` WHERE `ID_REGLA`='$id_regla'");
+        $fila1 = $regla_actual->fetch_assoc();
+        $conclusion = $fila1['CONCLUSION'];
+
+        $antecedente_actual = $mysqli->query("SELECT `DESCRIP_ANT` FROM `antecedentes` WHERE `ID_ANTECEDENTES`= '$id_antecedente'");
+        $fila2 = $antecedente_actual->fetch_assoc();
+        $antecedente = $fila2['DESCRIP_ANT'];
 
         
-        $primer_antecedente=$mysqli->query(" SELECT MIN(`ID_ANTECEDENTES`) AS id_min_ant, `DESCRIP_ANT` FROM antecedentes WHERE `ID_REGLA`='$id_regla'");
+        $id_antecedente_sig = $mysqli->query("SELECT `ID_REGLA`,`ID_ANTECEDENTES` FROM antecedentes WHERE `ID_ANTECEDENTES` = (SELECT MIN(`ID_ANTECEDENTES`) FROM antecedentes WHERE `ID_ANTECEDENTES` > '$id_antecedente')");
+        $fila4 = $id_antecedente_sig->fetch_assoc();
+        $id_antec_sig = $fila4['ID_ANTECEDENTES'];
+        $id_regla2 = $fila4['ID_REGLA'];
 
-        $fila2 = $primer_antecedente->fetch_assoc();
-        $id_ant = $fila2['id_min_ant'];
-        $descrip_ant= $fila2['DESCRIP_ANT'];
+        if($id_regla2 != $id_regla){
+            $id_regla_sig = $mysqli->query("SELECT `ID_REGLA` FROM reglas WHERE `ID_REGLA` = (SELECT MIN(`ID_REGLA`) FROM reglas WHERE `ID_REGLA` > '$id_regla')");
+            $fila3 = $id_regla_sig->fetch_assoc();
+            $id_regla_sig = $fila3['ID_REGLA'];
+        }else
+            $id_regla_sig = $id_regla;
 
 
-        
-        if($primera_regla){
+        if($regla_actual){
             
             $J[$I]=[
                 "validacion"=>true,
                 "id_regla"=>$id_regla,
-                "conclu_regla"=>$conclu_regla,
-                "id_ant"=>$id_ant,
-                "descrip_ant"=>$descrip_ant
+                "conlusion"=>$conclusion,
+                "id_antecedente"=>$id_antecedente,
+                "antecedente"=>$antecedente,
+                "id_regla_sig"=>$id_regla_sig,
+                "id_antecedente_sig"=>$id_antec_sig
             ];
             echo json_encode($J);
         }
@@ -52,6 +60,7 @@
 
             echo json_encode($J);
         }
+    
     }
     $mysqli->close();
 
