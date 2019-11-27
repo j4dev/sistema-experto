@@ -40,7 +40,7 @@
             $id_regla_sig = $id_regla;
 
 
-        if($respuesta == 'false'){
+        if($respuesta == 'false'){ //
             $antecedente_salto = $mysqli->query(" SELECT MIN(`ID_ANTECEDENTES`) AS id_min_ant, `DESCRIP_ANT` FROM antecedentes WHERE `ID_REGLA`='$id_regla_sig'");
 
             $fila5 = $antecedente_salto->fetch_assoc();
