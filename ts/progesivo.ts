@@ -39,26 +39,33 @@ async function requestRules(id_regla:string, id_ant:string,res:boolean) {
 
 async function requestAllRules(id_r:string,id_a:string,res:boolean) {
     
-    
-    const response = await requestRules(id_r,id_a,res);
-    
-    
-    insertTemporal(res);
-    
-
-    if (response[0].validacion) {
+    if (id_r != null) {
+        const response = await requestRules(id_r,id_a,res);
+        var pr = JSON.parse(localStorage.getItem("pregunta"));
+        if (response[0].id_regla != pr.id_regla && res) {
+            insertRTemporal(res);
+        } else {
+            insertTemporal(res);
+        }
         
-        var pregunta = "<p class=\"alert alert-warning text-center\">¿"+response[0].antecedente+"?</p>"+
-        "<div class=\"col text-center\">"+
-        "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules("+response[0].id_regla_sig+","+response[0].id_antecedente_sig+","+true+")\">Si</button>"+
-        "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules("+response[0].id_regla_sig+","+response[0].id_antecedente_sig+","+false+")\">No</button>"+
-        "</div>";
-        localStorage.setItem("pregunta", JSON.stringify(response[0]));
+
+        if (response[0].validacion) {
+            
+            var pregunta = "<p class=\"alert alert-warning text-center\">¿"+response[0].antecedente+"?</p>"+
+            "<div class=\"col text-center\">"+
+            "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules("+response[0].id_regla_sig+","+response[0].id_antecedente_sig+","+true+")\">Si</button>"+
+            "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules("+response[0].id_regla_sig+","+response[0].id_antecedente_sig+","+false+")\">No</button>"+
+            "</div>";
+            localStorage.setItem("pregunta", JSON.stringify(response[0]));
+        }else{
+            var pregunta = "<p class=\"alert alert-warning text-center\">PROBLEMAS EN LA COMUNICACION CON LA API</p>";
+        }
+        
     }else{
-        var pregunta = "<p class=\"alert alert-warning text-center\">PROBLEMAS EN LA COMUNICACION CON LA API</p>";
+        var pregunta = "<p class=\"alert alert-warning text-center\">NO EXISTEN MAS REGLAS REVISE LA RESPUESTA</p>";
     }
     var datos = document.querySelector("#pregunta");
-    datos.innerHTML = pregunta;
+        datos.innerHTML = pregunta;
     
 }
 
@@ -83,7 +90,7 @@ async function firstQuestion() {
 
 async function insertTemporal(res:boolean) {
 
-    var datos = document.querySelector<HTMLInputElement>("#datos_us");
+    
     var pr = JSON.parse(localStorage.getItem("pregunta"));
     var user = JSON.parse(localStorage.getItem("user"));
     
@@ -102,5 +109,33 @@ async function insertTemporal(res:boolean) {
             "Content-type": "application/json; charset=UTF-8"
         }
     });
+    
+}
+
+async function insertRTemporal(res:boolean) {
+
+    
+    var pr = JSON.parse(localStorage.getItem("pregunta"));
+    
+    var data = {
+        regla:pr.conlusion,
+        respuesta:String(res)
+        
+    };
+    
+    var result = "<p class=\"alert alert-success text-center\">"+pr.conlusion+"</p>";
+    var datos = document.querySelector("#resultado");
+    datos.innerHTML = result;
+    
+    var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporalReglas.php";
+    
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    
     
 }

@@ -43,18 +43,29 @@ function requestRules(id_regla, id_ant, res) {
 }
 function requestAllRules(id_r, id_a, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield requestRules(id_r, id_a, res);
-        insertTemporal(res);
-        if (response[0].validacion) {
-            var pregunta = "<p class=\"alert alert-warning text-center\">¿" + response[0].antecedente + "?</p>" +
-                "<div class=\"col text-center\">" +
-                "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + true + ")\">Si</button>" +
-                "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + false + ")\">No</button>" +
-                "</div>";
-            localStorage.setItem("pregunta", JSON.stringify(response[0]));
+        if (id_r != null) {
+            const response = yield requestRules(id_r, id_a, res);
+            var pr = JSON.parse(localStorage.getItem("pregunta"));
+            if (response[0].id_regla != pr.id_regla && res) {
+                insertRTemporal(res);
+            }
+            else {
+                insertTemporal(res);
+            }
+            if (response[0].validacion) {
+                var pregunta = "<p class=\"alert alert-warning text-center\">¿" + response[0].antecedente + "?</p>" +
+                    "<div class=\"col text-center\">" +
+                    "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + true + ")\">Si</button>" +
+                    "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + false + ")\">No</button>" +
+                    "</div>";
+                localStorage.setItem("pregunta", JSON.stringify(response[0]));
+            }
+            else {
+                var pregunta = "<p class=\"alert alert-warning text-center\">PROBLEMAS EN LA COMUNICACION CON LA API</p>";
+            }
         }
         else {
-            var pregunta = "<p class=\"alert alert-warning text-center\">PROBLEMAS EN LA COMUNICACION CON LA API</p>";
+            var pregunta = "<p class=\"alert alert-warning text-center\">NO EXISTEN MAS REGLAS REVISE LA RESPUESTA</p>";
         }
         var datos = document.querySelector("#pregunta");
         datos.innerHTML = pregunta;
@@ -80,7 +91,6 @@ function firstQuestion() {
 }
 function insertTemporal(res) {
     return __awaiter(this, void 0, void 0, function* () {
-        var datos = document.querySelector("#datos_us");
         var pr = JSON.parse(localStorage.getItem("pregunta"));
         var user = JSON.parse(localStorage.getItem("user"));
         var data = {
@@ -89,6 +99,26 @@ function insertTemporal(res) {
             conclusion: String(res)
         };
         var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporal.php";
+        const response = yield fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+    });
+}
+function insertRTemporal(res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var pr = JSON.parse(localStorage.getItem("pregunta"));
+        var data = {
+            regla: pr.conlusion,
+            respuesta: String(res)
+        };
+        var result = "<p class=\"alert alert-success text-center\">" + pr.conlusion + "</p>";
+        var datos = document.querySelector("#resultado");
+        datos.innerHTML = result;
+        var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporalReglas.php";
         const response = yield fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
