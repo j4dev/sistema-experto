@@ -105,7 +105,7 @@ function listRules() {
                 "<td>" + rules.conclusion + "</td>" +
                 "<td>" + antecedente +
                 "</td>" +
-                "<td class=\"text-center\"><i class=\"zmdi zmdi-edit zmdi-hc-2x\" data-toggle=\"modal\" data-target=\"#ModalForm\" onClick=\"editRule(" + rules.id_regla + ")\"></i></td>" +
+                "<td class=\"text-center\"><button type=\"button\" class=\"zmdi zmdi-edit zmdi-hc-2x\" data-toggle=\"modal\" data-target=\"#ModalUpdate\" onClick=\"editRule(" + rules.id_regla + ")\"></button></td>" +
                 "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"  onClick=\"deleteRule(" + rules.id_regla + ")\"></i></td>" +
                 "</tr>";
             antecedente = "";
