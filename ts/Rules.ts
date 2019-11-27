@@ -1,11 +1,14 @@
 function deleteChild() {
+    let hipotesis = document.querySelector("#hu");
     var listado = document.body.querySelector("#updateante");
+    hipotesis.innerHTML="";
     listado.innerHTML = "";
 }
 
 /**
  * Agrear un input al modal de ingreso de reglas
  */
+var id_hipotesis = "";
 var inputTotal = 1;
 var inputUp:Array<string>=[];
 function addInputU(value:string,idI:string) {
@@ -17,8 +20,6 @@ function addInputU(value:string,idI:string) {
     input.setAttribute("style","text-transform:uppercase;");
     input.setAttribute("value",value);
     antece.appendChild(input);
-
-    let span = document.createElement("SPAN");
     
 }
 
@@ -120,7 +121,7 @@ async function listRules() {
             //pero como obtenemos los id de la regla
             //verificando el id anterior reservado en memoria
             //dos contadores que verifiquen uno cuando sea verdadero y otro por cada antecedente
-            // tomar como que fue verdadero en el cambio solo si fue verdadero la ultima 
+            // tomar como que fue verdadero en el cambio solo si fue verdadero la ultima
         });
 
         rule = rule + "<tr>"+
@@ -173,37 +174,21 @@ async function editRule() {
     var antecedentes: Array<any> = [];
     var idI = "";
 
+    inputUp.map(function (id:string) {
+        idI = "#i"+id.toString();
+        var dato = (<HTMLInputElement>document.getElementById(idI)).value.toString();
+        antecedentes.push(dato);
+    });
 
-    /*for (let i = 1; i <= inputTotal; i++) {
-        id = "#i"+i.toString();
-        var dato = document.querySelector<HTMLInputElement>(id).value.toString();
-        antecedentes.push(dato); 
-    }*/
+    var hipotesis  = (<HTMLInputElement>document.getElementById(id_hipotesis)).value.toString();
 
-    //inputUp.map(function (id:string) {
-       // idI = "#i"+id.toString();
-        var dato = document.querySelector<HTMLInputElement>("#i1").value.toString();
-        console.log(dato);
-        
-        //antecedentes.push(dato);
-    //});
-
-    var hipotesis  = document.querySelector<HTMLInputElement>("#hipotesisU").value.toString();
-    console.log(hipotesis);
-    console.log(antecedentes);
-    
-    
-    /**
-      * Obtener usuarios del local Storage
-      */
-    /*var user = JSON.parse(localStorage.getItem("user"));
     var data = {
-        usuario: user.id_us,
+        id_regla_mod: id_hipotesis,
         hipotesis: hipotesis,
         vec_antecedentes: antecedentes
     };
     
-    var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
+    var url = "http://localhost/sistemaexperto/api/rules/updateRules.php";
     const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -212,10 +197,9 @@ async function editRule() {
         }
     });
     const json = await response.json();
+   
     
-    document.querySelector<HTMLInputElement>("#i1").value = "";
-    document.querySelector<HTMLInputElement>("#hipotesis").value = "";
-    listRules();*/
+    listRules();
 }
 
 /**
@@ -226,6 +210,7 @@ async function editRule() {
  */
 async function modalEdit(id_regla:string) {
     deleteChild();
+    inputUp = [];
     var url = "http://localhost/sistemaexperto/api/rules/infoRule.php";
     
     var data = {
@@ -248,13 +233,17 @@ async function modalEdit(id_regla:string) {
         inputUp.push(ante.id_antec);
         
     });
-    let hipotesis = document.querySelector<HTMLInputElement>("#hipotesisU");
-    hipotesis.value = json.conclusion;
+    
+    id_hipotesis = json.id_regla;
 
-    let hipo = document.querySelector<HTMLInputElement>("#hu");
-    let span = document.createElement("SPAN");
-    span.setAttribute("id",json.id_regla);
-    hipo.appendChild(span);
+    let hipotesis = document.querySelector<HTMLInputElement>("#hu");
+    let input = document.createElement("INPUT");
+    input.setAttribute("class","form-control");
+    input.setAttribute("id",json.id_regla);
+    input.setAttribute("style","text-transform:uppercase;");
+    input.setAttribute("value",json.conclusion);
+    hipotesis.appendChild(input);
+
 }
 
 

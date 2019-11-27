@@ -9,12 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 function deleteChild() {
+    let hipotesis = document.querySelector("#hu");
     var listado = document.body.querySelector("#updateante");
+    hipotesis.innerHTML = "";
     listado.innerHTML = "";
 }
 /**
  * Agrear un input al modal de ingreso de reglas
  */
+var id_hipotesis = "";
 var inputTotal = 1;
 var inputUp = [];
 function addInputU(value, idI) {
@@ -26,7 +29,6 @@ function addInputU(value, idI) {
     input.setAttribute("style", "text-transform:uppercase;");
     input.setAttribute("value", value);
     antece.appendChild(input);
-    let span = document.createElement("SPAN");
 }
 function addInput(value) {
     inputTotal = inputTotal + 1;
@@ -116,7 +118,7 @@ function listRules() {
                 //pero como obtenemos los id de la regla
                 //verificando el id anterior reservado en memoria
                 //dos contadores que verifiquen uno cuando sea verdadero y otro por cada antecedente
-                // tomar como que fue verdadero en el cambio solo si fue verdadero la ultima 
+                // tomar como que fue verdadero en el cambio solo si fue verdadero la ultima
             });
             rule = rule + "<tr>" +
                 "<th scope=\"row\">" + rules.id_regla + "</th>" +
@@ -166,43 +168,27 @@ function editRule() {
          */
         var antecedentes = [];
         var idI = "";
-        /*for (let i = 1; i <= inputTotal; i++) {
-            id = "#i"+i.toString();
-            var dato = document.querySelector<HTMLInputElement>(id).value.toString();
+        inputUp.map(function (id) {
+            idI = "#i" + id.toString();
+            var dato = document.getElementById(idI).value.toString();
             antecedentes.push(dato);
-        }*/
-        //inputUp.map(function (id:string) {
-        // idI = "#i"+id.toString();
-        var dato = document.querySelector("#i1").value.toString();
-        console.log(dato);
-        //antecedentes.push(dato);
-        //});
-        var hipotesis = document.querySelector("#hipotesisU").value.toString();
-        console.log(hipotesis);
-        console.log(antecedentes);
-        /**
-          * Obtener usuarios del local Storage
-          */
-        /*var user = JSON.parse(localStorage.getItem("user"));
+        });
+        var hipotesis = document.getElementById(id_hipotesis).value.toString();
         var data = {
-            usuario: user.id_us,
+            id_regla_mod: id_hipotesis,
             hipotesis: hipotesis,
             vec_antecedentes: antecedentes
         };
-        
-        var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
-        const response = await fetch(url, {
+        var url = "http://localhost/sistemaexperto/api/rules/updateRules.php";
+        const response = yield fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
-        const json = await response.json();
-        
-        document.querySelector<HTMLInputElement>("#i1").value = "";
-        document.querySelector<HTMLInputElement>("#hipotesis").value = "";
-        listRules();*/
+        const json = yield response.json();
+        listRules();
     });
 }
 /**
@@ -214,6 +200,7 @@ function editRule() {
 function modalEdit(id_regla) {
     return __awaiter(this, void 0, void 0, function* () {
         deleteChild();
+        inputUp = [];
         var url = "http://localhost/sistemaexperto/api/rules/infoRule.php";
         var data = {
             id_regla
@@ -230,12 +217,14 @@ function modalEdit(id_regla) {
             addInputU(ante.antecedente, ante.id_antec);
             inputUp.push(ante.id_antec);
         });
-        let hipotesis = document.querySelector("#hipotesisU");
-        hipotesis.value = json.conclusion;
-        let hipo = document.querySelector("#hu");
-        let span = document.createElement("SPAN");
-        span.setAttribute("id", json.id_regla);
-        hipo.appendChild(span);
+        id_hipotesis = json.id_regla;
+        let hipotesis = document.querySelector("#hu");
+        let input = document.createElement("INPUT");
+        input.setAttribute("class", "form-control");
+        input.setAttribute("id", json.id_regla);
+        input.setAttribute("style", "text-transform:uppercase;");
+        input.setAttribute("value", json.conclusion);
+        hipotesis.appendChild(input);
     });
 }
 /*var modalEdit = "<div class=\"modal-dialog\" role=\"document\">"+
