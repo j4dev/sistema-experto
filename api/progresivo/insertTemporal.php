@@ -9,16 +9,15 @@
 
     $objson =json_decode($json);
 
-
-    $id_pregunta = $objson->id_pregunta;
     $id_usuario = $objson->id_usuario;
     $pregunta = $objson->pregunta;
     $conclusion = $objson->conclusion;
 
-    if($id_pregunta != null)
+    if($id_usuario != null)
     {
 
-        $sql = mysqli->query("INSERT INTO temporal (ID_USUARIO, PREGUNTA_TEMP, CONCLUSION_TEMP) VALUES ($id_usuario', '$pregunta', '$conclusion')");
+        $sql = $mysqli->query("INSERT INTO temporal (ID_USUARIO, PREGUNTA_TEMP, CONCLUSION_TEMP) VALUES ('$id_usuario', '$pregunta', '$conclusion')");
+        
 
     }
     $mysqli->close();
