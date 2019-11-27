@@ -1,5 +1,5 @@
 function deleteChild() {
-    var listado = document.body.querySelector("#antecedentes");
+    var listado = document.body.querySelector("#updateante");
     listado.innerHTML = "";
 }
 
@@ -7,6 +7,21 @@ function deleteChild() {
  * Agrear un input al modal de ingreso de reglas
  */
 var inputTotal = 1;
+var inputUp:Array<string>=[];
+function addInputU(value:string,idI:string) {
+    idI = "#i"+idI;
+    let antece = document.querySelector<HTMLInputElement>("#updateante");
+    let input = document.createElement("INPUT");
+    input.setAttribute("class","form-control");
+    input.setAttribute("id",idI);
+    input.setAttribute("style","text-transform:uppercase;");
+    input.setAttribute("value",value);
+    antece.appendChild(input);
+
+    let span = document.createElement("SPAN");
+    
+}
+
 
 function addInput(value:string) {
     inputTotal = inputTotal + 1 ;
@@ -100,6 +115,12 @@ async function listRules() {
     res.reglas.map(function (rules:any) {
         rules.antecedentes.map(function (ante:any) {
             antecedente = antecedente + "<li>"+ante.antecedente+"</li>";
+            // sacar el primer antecendente y al click que se muevea al siguiente una funcion mostrar 
+            // otra funcion para hacer otra peticion id_regla id_ante
+            //pero como obtenemos los id de la regla
+            //verificando el id anterior reservado en memoria
+            //dos contadores que verifiquen uno cuando sea verdadero y otro por cada antecedente
+            // tomar como que fue verdadero en el cambio solo si fue verdadero la ultima 
         });
 
         rule = rule + "<tr>"+
@@ -107,7 +128,7 @@ async function listRules() {
         "<td>"+rules.conclusion+"</td>"+
         "<td>"+antecedente+
         "</td>"+
-        "<td class=\"text-center\"><button type=\"button\" class=\"zmdi zmdi-edit zmdi-hc-2x\" data-toggle=\"modal\" data-target=\"#ModalUpdate\" onClick=\"editRule("+rules.id_regla+")\"></button></td>"+
+        "<td class=\"text-center\"><button type=\"button\" class=\"zmdi zmdi-edit zmdi-hc-2x\" data-toggle=\"modal\" data-target=\"#ModalUpdate\" onClick=\"modalEdit("+rules.id_regla+")\"></button></td>"+
         "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"  onClick=\"deleteRule("+rules.id_regla+")\"></i></td>"+
         "</tr>";
         antecedente = "";
@@ -145,7 +166,65 @@ async function deleteRule(id_regla:string) {
  *
  * @param {string} id_regla
  */
-async function editRule(id_regla:string) {
+async function editRule() {
+    /**
+     * Obtencion de los antecedentes de los input
+     */
+    var antecedentes: Array<any> = [];
+    var idI = "";
+
+
+    /*for (let i = 1; i <= inputTotal; i++) {
+        id = "#i"+i.toString();
+        var dato = document.querySelector<HTMLInputElement>(id).value.toString();
+        antecedentes.push(dato); 
+    }*/
+
+    //inputUp.map(function (id:string) {
+       // idI = "#i"+id.toString();
+        var dato = document.querySelector<HTMLInputElement>("#i1").value.toString();
+        console.log(dato);
+        
+        //antecedentes.push(dato);
+    //});
+
+    var hipotesis  = document.querySelector<HTMLInputElement>("#hipotesisU").value.toString();
+    console.log(hipotesis);
+    console.log(antecedentes);
+    
+    
+    /**
+      * Obtener usuarios del local Storage
+      */
+    /*var user = JSON.parse(localStorage.getItem("user"));
+    var data = {
+        usuario: user.id_us,
+        hipotesis: hipotesis,
+        vec_antecedentes: antecedentes
+    };
+    
+    var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const json = await response.json();
+    
+    document.querySelector<HTMLInputElement>("#i1").value = "";
+    document.querySelector<HTMLInputElement>("#hipotesis").value = "";
+    listRules();*/
+}
+
+/**
+ *
+ *
+ * @param {*} json
+ *Funcion para mostrar el model donde se editaran los datos de la regla
+ */
+async function modalEdit(id_regla:string) {
     deleteChild();
     var url = "http://localhost/sistemaexperto/api/rules/infoRule.php";
     
@@ -161,22 +240,44 @@ async function editRule(id_regla:string) {
         }
     });
     const json = await response.json();
-    console.log(json);
-    json.reglas.map(function (ante:any) {
-        addInput(ante.antecedente);
-    });
     
+    
+    json.reglas.map(function (ante:any) {
+        
+        addInputU(ante.antecedente,ante.id_antec);
+        inputUp.push(ante.id_antec);
+        
+    });
+    let hipotesis = document.querySelector<HTMLInputElement>("#hipotesisU");
+    hipotesis.value = json.conclusion;
+
+    let hipo = document.querySelector<HTMLInputElement>("#hu");
+    let span = document.createElement("SPAN");
+    span.setAttribute("id",json.id_regla);
+    hipo.appendChild(span);
 }
 
-/**
- *
- *
- * @param {*} json
- *Funcion para mostrar el model donde se editaran los datos de la regla
- */
-function modalEdit(json:any) {
-    
-    var modalEdit = "<div class=\"modal-dialog\" role=\"document\">"+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*var modalEdit = "<div class=\"modal-dialog\" role=\"document\">"+
     "<div class=\"modal-content\">"+
     "<div class=\"modal-header\">"+
     "<h1 class=\"modal-title\">Regla</h1>"+
@@ -205,8 +306,5 @@ function modalEdit(json:any) {
     "</div>"+
     " </div>"+
     "</div>"+
-    "</div>";
-
-}
-
+    "</div>";*/
 

@@ -25,7 +25,6 @@ async function loginUser() {
     
     
     localStorage.setItem("user", JSON.stringify(json[0]));
-    console.log(json);
     
     if (json[0].Validacion) {
         if (json[0].tipo === "Experto") {

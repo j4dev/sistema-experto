@@ -124,22 +124,25 @@
                             <p>Antecedentes: </p>
                             <div>
                                 
-                                <div id="antecedentes">
-                                    <input type="text" class="form-control" id="i1" style="text-transform:uppercase;">
+                                <div id="updateante">
+
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <i class="zmdi zmdi-plus-circle zmdi-hc-3x" onclick="addInput('')"></i>
-                            </div>
+                            <!--<div class="text-center">
+                                <i class="zmdi zmdi-plus-circle zmdi-hc-3x" onclick="addInputU('')"></i>
+                            </div>-->
 
                             <div class="form-group">
                                 <p>Hipótesis:</p>
-                                <input type="text" class="form-control" id="hipotesis"
+                                <div id="hu">
+                                    <input type="text" class="form-control" id="hipotesisU"
                                     style="text-transform:uppercase;">
+                                </div>
+                                
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success" onclick="addRule()"
+                                <button type="submit" class="btn btn-success" onclick="editRule()"
                                     data-dismiss="modal">Guardar</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             </div>

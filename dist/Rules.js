@@ -9,13 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 function deleteChild() {
-    var listado = document.body.querySelector("#antecedentes");
+    var listado = document.body.querySelector("#updateante");
     listado.innerHTML = "";
 }
 /**
  * Agrear un input al modal de ingreso de reglas
  */
 var inputTotal = 1;
+var inputUp = [];
+function addInputU(value, idI) {
+    idI = "#i" + idI;
+    let antece = document.querySelector("#updateante");
+    let input = document.createElement("INPUT");
+    input.setAttribute("class", "form-control");
+    input.setAttribute("id", idI);
+    input.setAttribute("style", "text-transform:uppercase;");
+    input.setAttribute("value", value);
+    antece.appendChild(input);
+    let span = document.createElement("SPAN");
+}
 function addInput(value) {
     inputTotal = inputTotal + 1;
     var id = "i" + inputTotal.toString();
@@ -99,13 +111,19 @@ function listRules() {
         res.reglas.map(function (rules) {
             rules.antecedentes.map(function (ante) {
                 antecedente = antecedente + "<li>" + ante.antecedente + "</li>";
+                // sacar el primer antecendente y al click que se muevea al siguiente una funcion mostrar 
+                // otra funcion para hacer otra peticion id_regla id_ante
+                //pero como obtenemos los id de la regla
+                //verificando el id anterior reservado en memoria
+                //dos contadores que verifiquen uno cuando sea verdadero y otro por cada antecedente
+                // tomar como que fue verdadero en el cambio solo si fue verdadero la ultima 
             });
             rule = rule + "<tr>" +
                 "<th scope=\"row\">" + rules.id_regla + "</th>" +
                 "<td>" + rules.conclusion + "</td>" +
                 "<td>" + antecedente +
                 "</td>" +
-                "<td class=\"text-center\"><button type=\"button\" class=\"zmdi zmdi-edit zmdi-hc-2x\" data-toggle=\"modal\" data-target=\"#ModalUpdate\" onClick=\"editRule(" + rules.id_regla + ")\"></button></td>" +
+                "<td class=\"text-center\"><button type=\"button\" class=\"zmdi zmdi-edit zmdi-hc-2x\" data-toggle=\"modal\" data-target=\"#ModalUpdate\" onClick=\"modalEdit(" + rules.id_regla + ")\"></button></td>" +
                 "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"  onClick=\"deleteRule(" + rules.id_regla + ")\"></i></td>" +
                 "</tr>";
             antecedente = "";
@@ -141,7 +159,59 @@ function deleteRule(id_regla) {
  *
  * @param {string} id_regla
  */
-function editRule(id_regla) {
+function editRule() {
+    return __awaiter(this, void 0, void 0, function* () {
+        /**
+         * Obtencion de los antecedentes de los input
+         */
+        var antecedentes = [];
+        var idI = "";
+        /*for (let i = 1; i <= inputTotal; i++) {
+            id = "#i"+i.toString();
+            var dato = document.querySelector<HTMLInputElement>(id).value.toString();
+            antecedentes.push(dato);
+        }*/
+        //inputUp.map(function (id:string) {
+        // idI = "#i"+id.toString();
+        var dato = document.querySelector("#i1").value.toString();
+        console.log(dato);
+        //antecedentes.push(dato);
+        //});
+        var hipotesis = document.querySelector("#hipotesisU").value.toString();
+        console.log(hipotesis);
+        console.log(antecedentes);
+        /**
+          * Obtener usuarios del local Storage
+          */
+        /*var user = JSON.parse(localStorage.getItem("user"));
+        var data = {
+            usuario: user.id_us,
+            hipotesis: hipotesis,
+            vec_antecedentes: antecedentes
+        };
+        
+        var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
+        const response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const json = await response.json();
+        
+        document.querySelector<HTMLInputElement>("#i1").value = "";
+        document.querySelector<HTMLInputElement>("#hipotesis").value = "";
+        listRules();*/
+    });
+}
+/**
+ *
+ *
+ * @param {*} json
+ *Funcion para mostrar el model donde se editaran los datos de la regla
+ */
+function modalEdit(id_regla) {
     return __awaiter(this, void 0, void 0, function* () {
         deleteChild();
         var url = "http://localhost/sistemaexperto/api/rules/infoRule.php";
@@ -156,48 +226,46 @@ function editRule(id_regla) {
             }
         });
         const json = yield response.json();
-        console.log(json);
         json.reglas.map(function (ante) {
-            addInput(ante.antecedente);
+            addInputU(ante.antecedente, ante.id_antec);
+            inputUp.push(ante.id_antec);
         });
+        let hipotesis = document.querySelector("#hipotesisU");
+        hipotesis.value = json.conclusion;
+        let hipo = document.querySelector("#hu");
+        let span = document.createElement("SPAN");
+        span.setAttribute("id", json.id_regla);
+        hipo.appendChild(span);
     });
 }
-/**
- *
- *
- * @param {*} json
- *Funcion para mostrar el model donde se editaran los datos de la regla
- */
-function modalEdit(json) {
-    var modalEdit = "<div class=\"modal-dialog\" role=\"document\">" +
-        "<div class=\"modal-content\">" +
-        "<div class=\"modal-header\">" +
-        "<h1 class=\"modal-title\">Regla</h1>" +
-        "</div>" +
-        "<div class=\"modal-body\">" +
-        "<div class=\"form-group\">" +
-        "<p>Antecedentes: </p>" +
-        "<div id=\"antecedentes\">" +
-        "<input type=\"text\" class=\"form-control\" id=\"i1\" style=\"text-transform:uppercase;\">" +
-        "<div id=\"antecedentes\">" +
-        "</div>" +
-        "</div>" +
-        "<div class=\"text-center\">" +
-        "<i class=\"zmdi zmdi-plus-circle zmdi-hc-3x\" onclick=\"addInput()\"></i>" +
-        "</div>" +
-        "<div class=\"form-group\">" +
-        "<p>Hipótesis:</p>" +
-        "<input type=\"text\" class=\"form-control\" id=\"hipotesis\"" +
-        "style=\"text-transform:uppercase;\">" +
-        "</div>" +
-        "<div class=\"form-group\">" +
-        "<button type=\"submit\" class=\"btn btn-success\" onclick=\"addRule()\"" +
-        "data-dismiss=\"modal\">Guardar</button>" +
-        "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancelar</button>" +
-        "</div>" +
-        "</div>" +
-        " </div>" +
-        "</div>" +
-        "</div>";
-}
+/*var modalEdit = "<div class=\"modal-dialog\" role=\"document\">"+
+"<div class=\"modal-content\">"+
+"<div class=\"modal-header\">"+
+"<h1 class=\"modal-title\">Regla</h1>"+
+"</div>"+
+"<div class=\"modal-body\">"+
+"<div class=\"form-group\">"+
+"<p>Antecedentes: </p>"+
+"<div id=\"antecedentes\">"+
+"<input type=\"text\" class=\"form-control\" id=\"i1\" style=\"text-transform:uppercase;\">"+
+"<div id=\"antecedentes\">"+
+"</div>"+
+"</div>"+
+"<div class=\"text-center\">"+
+"<i class=\"zmdi zmdi-plus-circle zmdi-hc-3x\" onclick=\"addInput()\"></i>"+
+"</div>"+
+"<div class=\"form-group\">"+
+"<p>Hipótesis:</p>"+
+"<input type=\"text\" class=\"form-control\" id=\"hipotesis\""+
+"style=\"text-transform:uppercase;\">"+
+"</div>"+
+"<div class=\"form-group\">"+
+"<button type=\"submit\" class=\"btn btn-success\" onclick=\"addRule()\""+
+"data-dismiss=\"modal\">Guardar</button>"+
+"<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancelar</button>"+
+"</div>"+
+"</div>"+
+" </div>"+
+"</div>"+
+"</div>";*/
 //# sourceMappingURL=Rules.js.map
