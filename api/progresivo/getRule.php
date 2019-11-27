@@ -47,6 +47,14 @@
             $id_antec_sig = $fila5['id_min_ant'];
         }
 
+        $final = false;
+
+        $ultimo_antecedente = $mysqli->query("SELECT `ID_ANTECEDENTES` from antecedentes order by `ID_ANTECEDENTES` desc limit 1 ");
+        $fila6 = $ultimo_antecedente->fetch_assoc();
+        $fin_ant = $fila6['ID_ANTECEDENTES'];
+        if($id_antecedente == $fin_ant)
+            $final = true;
+
         if($regla_actual){
             
             $J[$I]=[
@@ -56,7 +64,8 @@
                 "id_antecedente"=>$id_antecedente,
                 "antecedente"=>$antecedente,
                 "id_regla_sig"=>$id_regla_sig,
-                "id_antecedente_sig"=>$id_antec_sig
+                "id_antecedente_sig"=>$id_antec_sig,
+                "final"=>$final
             ];
             echo json_encode($J);
         }
