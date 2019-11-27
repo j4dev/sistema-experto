@@ -11,6 +11,7 @@
 
     $id_regla = $objson->id_regla;
     $id_antecedente = $objson->id_antecedente;
+    $respuesta = $objson->respuesta;
 
 
     if($id_regla != null)
@@ -31,13 +32,20 @@
         $id_antec_sig = $fila4['ID_ANTECEDENTES'];
         $id_regla2 = $fila4['ID_REGLA'];
 
-        if($id_regla2 != $id_regla){
+        if($id_regla2 != $id_regla || $respuesta == 'false'){ // if($id_regla2 != $id_regla || $respuesta == false){
             $id_regla_sig = $mysqli->query("SELECT `ID_REGLA` FROM reglas WHERE `ID_REGLA` = (SELECT MIN(`ID_REGLA`) FROM reglas WHERE `ID_REGLA` > '$id_regla')");
             $fila3 = $id_regla_sig->fetch_assoc();
             $id_regla_sig = $fila3['ID_REGLA'];
         }else
             $id_regla_sig = $id_regla;
 
+
+        if($respuesta == 'false'){
+            $antecedente_salto = $mysqli->query(" SELECT MIN(`ID_ANTECEDENTES`) AS id_min_ant, `DESCRIP_ANT` FROM antecedentes WHERE `ID_REGLA`='$id_regla_sig'");
+
+            $fila5 = $antecedente_salto->fetch_assoc();
+            $id_antec_sig = $fila5['id_min_ant'];
+        }
 
         if($regla_actual){
             
