@@ -41,14 +41,17 @@ async function requestAllRules(id_r:string,id_a:string,res:boolean) {
     
     if (id_r != null) {
         const response = await requestRules(id_r,id_a,res);
+        console.log(response);
         var pr = JSON.parse(localStorage.getItem("pregunta"));
+
         if (response[0].id_regla != pr.id_regla && res) {
             insertRTemporal(res);
         } else {
             insertTemporal(res);
         }
         
-
+        
+        
         if (response[0].validacion) {
             
             var pregunta = "<p class=\"alert alert-warning text-center\">¿"+response[0].antecedente+"?</p>"+
@@ -112,6 +115,11 @@ async function insertTemporal(res:boolean) {
     
 }
 
+/**
+ *Insertar la regla en la tabal temporal
+ *
+ * @param {boolean} res
+ */
 async function insertRTemporal(res:boolean) {
 
     
