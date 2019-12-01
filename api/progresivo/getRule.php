@@ -45,6 +45,19 @@
 
             $fila5 = $antecedente_salto->fetch_assoc();
             $id_antec_sig = $fila5['id_min_ant'];
+
+
+            //para antecedente
+            $id_antecedente  = $id_antec_sig;
+
+            $antecedente_actual = $mysqli->query("SELECT `DESCRIP_ANT` FROM `antecedentes` WHERE `ID_ANTECEDENTES`= '$id_antec_sig'");
+            $fila6 = $antecedente_actual->fetch_assoc();
+            $antecedente = $fila6['DESCRIP_ANT'];
+
+            $id_antecedente_sig2 = $mysqli->query("SELECT `ID_REGLA`,`ID_ANTECEDENTES` FROM antecedentes WHERE `ID_ANTECEDENTES` = (SELECT MIN(`ID_ANTECEDENTES`) FROM antecedentes WHERE `ID_ANTECEDENTES` > '$id_antecedente')");
+            $fila7 = $id_antecedente_sig2->fetch_assoc();
+            $id_antec_sig = $fila7['ID_ANTECEDENTES'];
+
         }
 
         $final = false;
@@ -54,6 +67,7 @@
         $fin_ant = $fila6['ID_ANTECEDENTES'];
         if($id_antecedente == $fin_ant)
             $final = true;
+
 
         if($regla_actual){
             
