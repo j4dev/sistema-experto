@@ -45,7 +45,6 @@ function requestAllRules(id_r, id_a, res) {
         if (id_r != null) {
             const response = yield requestRules(id_r, id_a, res);
             var pr = JSON.parse(localStorage.getItem("pregunta"));
-            console.log(response);
             if (response[0].id_regla != pr.id_regla && res) {
                 insertRTemporal(res);
             }
@@ -55,8 +54,8 @@ function requestAllRules(id_r, id_a, res) {
             if (response[0].validacion) {
                 var pregunta = "<p class=\"alert alert-warning text-center\">¿" + response[0].antecedente + "?</p>" +
                     "<div class=\"col text-center\">" +
-                    "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + true + ")\">Si</button>" +
-                    "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + false + ")\">No</button>" +
+                    "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + true + ")\">SI</button>" +
+                    "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + response[0].id_regla_sig + "," + response[0].id_antecedente_sig + "," + false + ")\">NO</button>" +
                     "</div>";
                 localStorage.setItem("pregunta", JSON.stringify(response[0]));
             }
@@ -66,6 +65,9 @@ function requestAllRules(id_r, id_a, res) {
         }
         else {
             var pregunta = "<p class=\"alert alert-warning text-center\">NO EXISTEN MAS REGLAS REVISE LA RESPUESTA</p>";
+            var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentes()\">VER DETALLE</button>";
+            var datos = document.querySelector("#resultado");
+            datos.innerHTML = result;
         }
         var datos = document.querySelector("#pregunta");
         datos.innerHTML = pregunta;
@@ -78,8 +80,8 @@ function firstQuestion() {
         if (res[0].validacion) {
             var pregunta = "<p class=\"alert alert-warning text-center\">¿" + res[0].antecedente + "?</p>" +
                 "<div class=\"col text-center\">" +
-                "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + res[0].id_regla_sig + "," + res[0].id_antecedente_sig + "," + true + ")\">Si</button>" +
-                "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + res[0].id_regla_sig + "," + res[0].id_antecedente_sig + "," + false + ")\">No</button>" +
+                "<button class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"requestAllRules(" + res[0].id_regla_sig + "," + res[0].id_antecedente_sig + "," + true + ")\">SI</button>" +
+                "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"requestAllRules(" + res[0].id_regla_sig + "," + res[0].id_antecedente_sig + "," + false + ")\">NO</button>" +
                 "</div>";
         }
         else {
