@@ -3,7 +3,7 @@
     header('Access-Control-Allow-Origin: *');
     header("Content-type: application/json");
     header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-    header('Access-Control-Allow-Methods: POST');
+    header('Access-Control-Allow-Methods: PUT');
     
     $json = file_get_contents('php://input');
 
@@ -16,7 +16,7 @@
     if($regla != null)
     {
 
-        $sql = mysqli->query("INSERT INTO temporalreglas (regla, respuesta) VALUES ('$regla', '$respuesta')");
+        $sql = $mysqli->query("INSERT INTO temporalreglas (regla, respuesta) VALUES ('$regla', '$respuesta')");
 
     }
     $mysqli->close();
