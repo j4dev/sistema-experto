@@ -45,6 +45,7 @@ function requestAllRules(id_r, id_a, res) {
         if (id_r != null) {
             const response = yield requestRules(id_r, id_a, res);
             var pr = JSON.parse(localStorage.getItem("pregunta"));
+            console.log(response);
             if (response[0].id_regla != pr.id_regla && res) {
                 insertRTemporal(res);
             }
@@ -119,9 +120,9 @@ function insertRTemporal(res) {
             regla: pr.conlusion,
             respuesta: String(res)
         };
-        var result = "<p class=\"alert alert-success text-center\">" + pr.conlusion + "</p>";
+        /*var result = "<p class=\"alert alert-success text-center\">"+pr.conlusion+"</p>";
         var datos = document.querySelector("#resultado");
-        datos.innerHTML = result;
+        datos.innerHTML = result;*/
         var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporalReglas.php";
         const response = yield fetch(url, {
             method: "POST",
