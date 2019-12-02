@@ -29,7 +29,6 @@ function requestRules(id_regla, id_ant, res) {
             id_antecedente: id_ant.toString(),
             respuesta: res.toString()
         };
-        console.log(JSON.stringify(data));
         const response = yield fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
@@ -108,6 +107,11 @@ function insertTemporal(res) {
         });
     });
 }
+/**
+ *Insertar la regla en la tabal temporal
+ *
+ * @param {boolean} res
+ */
 function insertRTemporal(res) {
     return __awaiter(this, void 0, void 0, function* () {
         var pr = JSON.parse(localStorage.getItem("pregunta"));

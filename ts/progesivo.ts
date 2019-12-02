@@ -22,8 +22,7 @@ async function requestRules(id_regla:string, id_ant:string,res:boolean) {
         id_antecedente:id_ant.toString(),
         respuesta:res.toString()
     };
-    console.log(JSON.stringify(data));
-    
+   
     const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -38,14 +37,16 @@ async function requestRules(id_regla:string, id_ant:string,res:boolean) {
 }
 
 async function requestAllRules(id_r:string,id_a:string,res:boolean) {
-    
+
     if (id_r != null) {
         const response = await requestRules(id_r,id_a,res);
-        console.log(response);
+        
         var pr = JSON.parse(localStorage.getItem("pregunta"));
 
         if (response[0].id_regla != pr.id_regla && res) {
+            
             insertRTemporal(res);
+
         } else {
             insertTemporal(res);
         }
@@ -127,8 +128,7 @@ async function insertRTemporal(res:boolean) {
     
     var data = {
         regla:pr.conlusion,
-        respuesta:String(res)
-        
+        respuesta:String(res)  
     };
     
     var result = "<p class=\"alert alert-success text-center\">"+pr.conlusion+"</p>";
