@@ -11,10 +11,51 @@ function selectTrue(id:any) {
     id.innerHTML = "";
 }
 
-function selectFalse(id_r:string) {
-    /*var pregunta:string="<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS NO CUMPLE CON LOS ANTECEDENTES</b></p>";
-    var datos = document.querySelector("#pregunta");
-    datos.innerHTML = pregunta;*/
+async function getOtros(id_r:string) {
+    var url = "http://localhost/sistemaexperto/api/regresivo/listRules2.php";
+    
+    var data = {
+        id_regla:id_r
+    };
+
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const json = await response.json();
+    
+    return json;
+}
+
+
+async function selectFalse(id_r:string) {
+
+    const response = await getOtros(id_r);
+    if (response[0].validacion) {
+        numAnte = 0;
+        numAux = 0;
+        var pregunta:string="";
+        var idB = 1;
+        response.map(function (res:any) {
+            var id = "b" + idB;
+            pregunta = pregunta + "<div id=\""+id+"\"><p class=\"alert alert-warning text-center\">¿"+res.antecedente+"?</p>"+
+                "<div class=\"col text-center\">"+
+                "<button  class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"selectTrue("+id+")\">SI</button>"+
+                "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse("+res.id_regla+")\">NO</button>"+
+                "</div> </div>";
+                numAnte++;
+                idB++;
+        });
+        var datos = document.querySelector("#pregunta");
+        datos.innerHTML = pregunta;
+    } else {
+        var pregunta:string="<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS NO CUMPLE CON LOS ANTECEDENTES</b></p>";
+        var datos = document.querySelector("#pregunta");
+        datos.innerHTML = pregunta;
+    }
 
 }
 
