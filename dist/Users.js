@@ -91,6 +91,15 @@ function getUserLocal() {
     datos.innerHTML = usuario;
 }
 function closeSession() {
-    window.location.href = "http://localhost/sistemaexperto/";
+    return __awaiter(this, void 0, void 0, function* () {
+        var url = "http://localhost/sistemaexperto/api/progresivo/deleteTables.php";
+        const response = yield fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        window.location.href = "http://localhost/sistemaexperto/";
+    });
 }
 //# sourceMappingURL=Users.js.map
