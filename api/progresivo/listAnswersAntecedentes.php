@@ -12,7 +12,7 @@
         $antecedentes=$mysqli->query("SELECT `PREGUNTA_TEMP`, `CONCLUSION_TEMP` FROM `temporal` ");
         $cont_ant = $antecedentes->num_rows;
 
-     while($cont_ant>0){
+        while($cont_ant>0){
 
         $fila = $antecedentes->fetch_assoc();
         $antecedente = $fila['PREGUNTA_TEMP'];

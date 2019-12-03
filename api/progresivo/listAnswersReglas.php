@@ -12,7 +12,7 @@
         $reglas=$mysqli->query("SELECT `regla`, `respuesta` FROM `temporalreglas`");
         $cont_regla = $reglas->num_rows;
 
-     while($cont_regla>0){
+        while($cont_regla>0){
 
         $fila = $reglas->fetch_assoc();
         $regla = $fila['regla'];
