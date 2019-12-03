@@ -11,7 +11,7 @@
         $reglas=$mysqli->query("SELECT l.* from reglas l inner join ( select `CONCLUSION`, max(`ID_REGLA`) as latest from reglas group by `CONCLUSION` ) r on l.`ID_REGLA` = r.latest and l.`CONCLUSION` = r.`CONCLUSION` order by `ID_REGLA` desc ");
         $cont_reglas = $reglas->num_rows;
 
-     while($cont_reglas>0){
+    while($cont_reglas>0){
 
         $fila = $reglas->fetch_assoc();
         $id_regla = $fila['ID_REGLA'];

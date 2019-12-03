@@ -98,6 +98,15 @@ function getUserLocal() {
     datos.innerHTML = usuario;
 }
 
-function closeSession() {
+async function closeSession() {
+    var url = "http://localhost/sistemaexperto/api/progresivo/deleteTables.php";
+
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+
     window.location.href = "http://localhost/sistemaexperto/";
 }
