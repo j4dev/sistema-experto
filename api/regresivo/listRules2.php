@@ -20,7 +20,7 @@
     $fila = $reglas2->fetch_assoc();
     $resp = $fila['ID_REGLA'];
     
-    if($reglas2 != null){
+    if($fila != null){
                 $antecedentes2 = $mysqli->query("SELECT `ID_REGLA`,`DESCRIP_ANT` FROM `antecedentes` WHERE `ID_REGLA` = '$resp'");
                 $cont_ant2 = $antecedentes2->num_rows;
                 while($cont_ant2>0){
