@@ -26,7 +26,7 @@
             $fila = $antecedentes->fetch_assoc();
             $antecedente = $fila['DESCRIP_ANT'];
 
-            $resp = antecedenteRegla($antecedente); //si regla  es antedente
+            $resp = antecedenteRegla($antecedente); //si regla  es antecedente
 
             if($resp != 0){
                 $antecedentes2 = $mysqli->query("SELECT `ID_REGLA`,`DESCRIP_ANT` FROM `antecedentes` WHERE `ID_REGLA` = '$resp'");
@@ -35,7 +35,6 @@
 
                     $fila2 = $antecedentes2->fetch_assoc();
                     $antecedente2 = $fila2['DESCRIP_ANT'];
-                    $id_regla2 = $fila2['ID_REGLA'];
                     $J[$I]=[
                         "antecedente"=>$antecedente2
                     ];
