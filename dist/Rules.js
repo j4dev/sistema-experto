@@ -113,12 +113,6 @@ function listRules() {
         res.reglas.map(function (rules) {
             rules.antecedentes.map(function (ante) {
                 antecedente = antecedente + "<li>" + ante.antecedente + "</li>";
-                // sacar el primer antecendente y al click que se muevea al siguiente una funcion mostrar 
-                // otra funcion para hacer otra peticion id_regla id_ante
-                //pero como obtenemos los id de la regla
-                //verificando el id anterior reservado en memoria
-                //dos contadores que verifiquen uno cuando sea verdadero y otro por cada antecedente
-                // tomar como que fue verdadero en el cambio solo si fue verdadero la ultima
             });
             rule = rule + "<tr>" +
                 "<th scope=\"row\">" + rules.id_regla + "</th>" +

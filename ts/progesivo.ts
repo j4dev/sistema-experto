@@ -37,7 +37,7 @@ async function requestRules(id_regla:string, id_ant:string,res:boolean) {
 
 async function requestAllRules(id_r:string,id_a:string,res:boolean) {
 
-    if (id_r != null) {
+    if (id_a != null) {
         const response = await requestRules(id_r,id_a,res);
         
         var pr = JSON.parse(localStorage.getItem("pregunta"));
@@ -65,9 +65,24 @@ async function requestAllRules(id_r:string,id_a:string,res:boolean) {
     }else{
 
         var pregunta = "<p class=\"alert alert-warning text-center\">NO EXISTEN MAS REGLAS REVISE LA RESPUESTA</p>";
-        var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentes()\">VER DETALLE</button>";
+        var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentes()\">VER DETALLE</button><br>";
+
+        var urlRules = "http://localhost/sistemaexperto/api/progresivo/listAnswersReglas.php";
+    
+        const responseRules = await fetch(urlRules , {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const jsonRules = await responseRules.json();
+        var resultado:string;
+        jsonRules.map(function (rule:any) {
+            resultado = rule.regla;
+        });
+
         var datos = document.querySelector("#resultado");
-        datos.innerHTML = result;
+        datos.innerHTML = "<center><h3><b>"+resultado+"</b></h3></center>"+"<br><br>"+result;
 
     }
     var datos = document.querySelector("#pregunta");
@@ -136,10 +151,6 @@ async function insertRTemporal(res:boolean) {
         respuesta:String(res)  
     };
     
-    /*var result = "<p class=\"alert alert-success text-center\">"+pr.conlusion+"</p>";
-    var datos = document.querySelector("#resultado");
-    datos.innerHTML = result;*/
-    
     var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporalReglas.php";
     
     const response = await fetch(url, {
@@ -149,6 +160,76 @@ async function insertRTemporal(res:boolean) {
             "Content-type": "application/json; charset=UTF-8"
         }
     });
+}
+
+
+async function listRulesAntecedentes() {
     
+    var urlRules = "http://localhost/sistemaexperto/api/progresivo/listAnswersReglas.php";
     
+    const responseRules = await fetch(urlRules , {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const jsonRules = await responseRules.json();
+
+    var urlAnte = "http://localhost/sistemaexperto/api/progresivo/listAnswersAntecedentes.php";
+    
+    const responseAnte = await fetch(urlAnte , {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const jsonAnte = await responseAnte.json();
+    createTable(jsonAnte,jsonRules);
+}
+
+function createTable(jsonAnte:any,jsonRules:any) {
+    var antecedentes:string = "";
+    var rules:string = "";
+
+    jsonRules.map(function (rule:any) {
+        rules = rules + "<tr>"+
+        "<th scope=\"row\">"+rule.regla+"</th>"+
+        "<td>"+rule.respuesta+"</td>"+
+        "</tr>";
+    });
+    jsonAnte.map(function (ante:any) {
+        antecedentes = antecedentes + "<tr>"+
+        "<th scope=\"row\">"+ante.antecedente+"</th>"+
+        "<td>"+ante.respuesta+"</td>"+
+        "</tr>";
+    });
+    var tableRules = "<br><br><br>"+
+    "<table class=\"table table-sm\">"+
+    "<thead>"+
+    "<tr>"+
+    "<th scope=\"col\">Reglas cumplidas</th>"+
+    "<th scope=\"col\">Respuestas inferidas</th>"+
+    "</tr>"+
+    "</thead>"+
+    "<tbody>"+
+        rules+
+    "</tbody>"+
+    "</table>";
+    var tableAnte = "<br><br><br>"+
+    "<table class=\"table table-sm\">"+
+    "<thead>"+
+    "<tr>"+
+    "<th scope=\"col\">Antecedentes</th>"+
+    "<th scope=\"col\">Respuestas dadas por el usuario</th>"+
+    "</tr>"+
+    "</thead>"+
+    "<tbody>"+
+    antecedentes+
+    "</tbody>"+
+    "</table>";
+
+    var listadoRules = document.body.querySelector("#table_rules");
+    listadoRules.innerHTML = tableRules;
+    var listadoAnte = document.body.querySelector("#table_ante");
+    listadoAnte.innerHTML = tableAnte;
 }
