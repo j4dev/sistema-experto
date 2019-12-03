@@ -19,10 +19,50 @@ function selectTrue(id) {
     }
     id.innerHTML = "";
 }
+function getOtros(id_r) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var url = "http://localhost/sistemaexperto/api/regresivo/listRules2.php";
+        var data = {
+            id_regla: id_r
+        };
+        const response = yield fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const json = yield response.json();
+        return json;
+    });
+}
 function selectFalse(id_r) {
-    /*var pregunta:string="<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS NO CUMPLE CON LOS ANTECEDENTES</b></p>";
-    var datos = document.querySelector("#pregunta");
-    datos.innerHTML = pregunta;*/
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield getOtros(id_r);
+        if (response[0].validacion) {
+            numAnte = 0;
+            numAux = 0;
+            var pregunta = "";
+            var idB = 1;
+            response.map(function (res) {
+                var id = "b" + idB;
+                pregunta = pregunta + "<div id=\"" + id + "\"><p class=\"alert alert-warning text-center\">¿" + res.antecedente + "?</p>" +
+                    "<div class=\"col text-center\">" +
+                    "<button  class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"selectTrue(" + id + ")\">SI</button>" +
+                    "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse(" + res.id_regla + ")\">NO</button>" +
+                    "</div> </div>";
+                numAnte++;
+                idB++;
+            });
+            var datos = document.querySelector("#pregunta");
+            datos.innerHTML = pregunta;
+        }
+        else {
+            var pregunta = "<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS NO CUMPLE CON LOS ANTECEDENTES</b></p>";
+            var datos = document.querySelector("#pregunta");
+            datos.innerHTML = pregunta;
+        }
+    });
 }
 function showAntece(id_r, json, res) {
     numAnte = 0;
