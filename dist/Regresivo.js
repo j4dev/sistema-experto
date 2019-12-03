@@ -19,12 +19,12 @@ function selectTrue(id) {
     }
     id.innerHTML = "";
 }
-function selectFalse() {
-    var pregunta = "<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS NO CUMPLE CON LOS ANTECEDENTES</b></p>";
+function selectFalse(id_r) {
+    /*var pregunta:string="<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS NO CUMPLE CON LOS ANTECEDENTES</b></p>";
     var datos = document.querySelector("#pregunta");
-    datos.innerHTML = pregunta;
+    datos.innerHTML = pregunta;*/
 }
-function showAntece(json, res) {
+function showAntece(id_r, json, res) {
     numAnte = 0;
     numAux = 0;
     var pregunta = "";
@@ -34,7 +34,7 @@ function showAntece(json, res) {
         pregunta = pregunta + "<div id=\"" + id + "\"><p class=\"alert alert-warning text-center\">¿" + res.antecedente + "?</p>" +
             "<div class=\"col text-center\">" +
             "<button  class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"selectTrue(" + id + ")\">SI</button>" +
-            "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse()\">NO</button>" +
+            "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse(" + id_r + ")\">NO</button>" +
             "</div> </div>";
         numAnte++;
         idB++;
@@ -56,7 +56,7 @@ function requestAllAntece(id_r, res) {
             }
         });
         const json = yield response.json();
-        showAntece(json, res);
+        showAntece(id_r, json, res);
     });
 }
 function requestRulesAfirmation() {
