@@ -17,6 +17,7 @@ function insertTableAnte(id_a, res) {
             id_antecedente: id_a,
             respuesta: res
         };
+        console.log(id_a);
         const response = yield fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
@@ -43,10 +44,10 @@ function getOtros(id_r) {
         return json;
     });
 }
-function selectTrue(id, id_a, res) {
+function selectTrue(id, id_a) {
     return __awaiter(this, void 0, void 0, function* () {
         numAux++;
-        yield insertTableAnte(id_a, res);
+        yield insertTableAnte(id_a, "true");
         if (numAnte == numAux) {
             var pregunta = "<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS CUMPLE CON LOS ANTECEDENTES</b></p>";
             var datos = document.querySelector("#pregunta");
@@ -55,10 +56,11 @@ function selectTrue(id, id_a, res) {
         id.innerHTML = "";
     });
 }
-function selectFalse(id_r, id_a, res) {
+function selectFalse(id_r, id_a) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield getOtros(id_r);
-        yield insertTableAnte(id_a, res);
+        yield insertTableAnte(id_a, "false");
+        console.log(response);
         if (response[0].validacion) {
             numAnte = 0;
             numAux = 0;
@@ -68,8 +70,8 @@ function selectFalse(id_r, id_a, res) {
                 var id = "b" + idB;
                 pregunta = pregunta + "<div id=\"" + id + "\"><p class=\"alert alert-warning text-center\">¿" + res.antecedente + "?</p>" +
                     "<div class=\"col text-center\">" +
-                    "<button  class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"selectTrue(" + id + "," + res.id_antecedente + "," + true + ")\">SI</button>" +
-                    "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse(" + res.id_regla + "," + res.id_antecedente + "," + false + ")\">NO</button>" +
+                    "<button  class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"selectTrue(" + id + "," + res.id_antecedente + ")\">SI</button>" +
+                    "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse(" + res.id_regla + "," + res.id_antecedente + ")\">NO</button>" +
                     "</div> </div>";
                 numAnte++;
                 idB++;
@@ -93,8 +95,8 @@ function showAntece(id_r, json, res) {
         var id = "b" + idB;
         pregunta = pregunta + "<div id=\"" + id + "\"><p class=\"alert alert-warning text-center\">¿" + res.antecedente + "?</p>" +
             "<div class=\"col text-center\">" +
-            "<button  class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"selectTrue(" + id + "," + res.id_antecedente + "," + true + ")\">SI</button>" +
-            "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse(" + id_r + "," + res.id_antecedente + "," + false + ")\">NO</button>" +
+            "<button  class=\"btn btn-success btn-lg\" type=\"button\" onClick=\"selectTrue(" + id + "," + res.id_antecedente + ")\">SI</button>" +
+            "<button class=\"btn btn-danger btn-lg\" type=\"button\" onClick=\"selectFalse(" + id_r + "," + res.id_antecedente + ")\">NO</button>" +
             "</div> </div>";
         numAnte++;
         idB++;

@@ -19,7 +19,6 @@
 
     
     $sql = $mysqli->query("INSERT INTO temporal (PREGUNTA_TEMP, CONCLUSION_TEMP) VALUES ('$descripcion', '$respuesta')");
-  
     
     $mysqli->close();
 
