@@ -1,6 +1,47 @@
 var numAnte = 0;
 var numAux = 0;
 
+
+function createTableR(jsonAnte:any) {
+    var antecedentes:string = "";
+
+    jsonAnte.map(function (ante:any) {
+        antecedentes = antecedentes + "<tr>"+
+        "<th scope=\"row\">"+ante.antecedente+"</th>"+
+        "<td>"+ante.respuesta+"</td>"+
+        "</tr>";
+    });
+    var tableAnte = "<br><br><br>"+
+    "<table class=\"table table-sm\">"+
+    "<thead>"+
+    "<tr>"+
+    "<th scope=\"col\">Antecedentes</th>"+
+    "<th scope=\"col\">Respuestas dadas por el usuario</th>"+
+    "</tr>"+
+    "</thead>"+
+    "<tbody>"+
+    antecedentes+
+    "</tbody>"+
+    "</table>";
+
+    var listadoAnte = document.body.querySelector("#table_ante");
+    listadoAnte.innerHTML = tableAnte;
+}
+
+async function listRulesAntecedentesR() {
+
+    var urlAnte = "http://localhost/sistemaexperto/api/progresivo/listAnswersAntecedentes.php";
+    
+    const responseAnte = await fetch(urlAnte , {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const jsonAnte = await responseAnte.json();
+    createTableR(jsonAnte);
+}
+
 async function insertTableAnte(id_a:string,res:string) {
     var url = "http://localhost/sistemaexperto/api/regresivo/insertAnte.php";
     
@@ -8,7 +49,6 @@ async function insertTableAnte(id_a:string,res:string) {
         id_antecedente:id_a,
         respuesta:res
     };
-    console.log(id_a);
     
     const response = await fetch(url, {
         method: "POST",
@@ -43,9 +83,10 @@ async function selectTrue(id:any,id_a:string) {
     await insertTableAnte(id_a,"true");
     
     if (numAnte == numAux) {
-        var pregunta:string="<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS CUMPLE CON LOS ANTECEDENTES</b></p>";
+        var pregunta:string="<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS CUMPLE CON LOS ANTECEDENTES</b></p><br>";
+        var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentesR()\">VER DETALLE</button><br>";
         var datos = document.querySelector("#pregunta");
-        datos.innerHTML = pregunta;
+        datos.innerHTML = pregunta + result;
     } 
     id.innerHTML = "";
 }
@@ -53,7 +94,6 @@ async function selectTrue(id:any,id_a:string) {
 async function selectFalse(id_r:string,id_a:string) {
     const response = await getOtros(id_r);
     await insertTableAnte(id_a,"false");
-    console.log(response);
     
     if (response[0].validacion) {
         numAnte = 0;

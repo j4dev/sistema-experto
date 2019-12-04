@@ -10,6 +10,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var numAnte = 0;
 var numAux = 0;
+function createTableR(jsonAnte) {
+    var antecedentes = "";
+    jsonAnte.map(function (ante) {
+        antecedentes = antecedentes + "<tr>" +
+            "<th scope=\"row\">" + ante.antecedente + "</th>" +
+            "<td>" + ante.respuesta + "</td>" +
+            "</tr>";
+    });
+    var tableAnte = "<br><br><br>" +
+        "<table class=\"table table-sm\">" +
+        "<thead>" +
+        "<tr>" +
+        "<th scope=\"col\">Antecedentes</th>" +
+        "<th scope=\"col\">Respuestas dadas por el usuario</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>" +
+        antecedentes +
+        "</tbody>" +
+        "</table>";
+    var listadoAnte = document.body.querySelector("#table_ante");
+    listadoAnte.innerHTML = tableAnte;
+}
+function listRulesAntecedentesR() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var urlAnte = "http://localhost/sistemaexperto/api/progresivo/listAnswersAntecedentes.php";
+        const responseAnte = yield fetch(urlAnte, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const jsonAnte = yield responseAnte.json();
+        createTableR(jsonAnte);
+    });
+}
 function insertTableAnte(id_a, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var url = "http://localhost/sistemaexperto/api/regresivo/insertAnte.php";
@@ -17,7 +53,6 @@ function insertTableAnte(id_a, res) {
             id_antecedente: id_a,
             respuesta: res
         };
-        console.log(id_a);
         const response = yield fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
@@ -49,9 +84,10 @@ function selectTrue(id, id_a) {
         numAux++;
         yield insertTableAnte(id_a, "true");
         if (numAnte == numAux) {
-            var pregunta = "<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS CUMPLE CON LOS ANTECEDENTES</b></p>";
+            var pregunta = "<p class=\"alert alert-warning text-center\"><b>SU HIPOTESIS CUMPLE CON LOS ANTECEDENTES</b></p><br>";
+            var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentesR()\">VER DETALLE</button><br>";
             var datos = document.querySelector("#pregunta");
-            datos.innerHTML = pregunta;
+            datos.innerHTML = pregunta + result;
         }
         id.innerHTML = "";
     });
@@ -60,7 +96,6 @@ function selectFalse(id_r, id_a) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield getOtros(id_r);
         yield insertTableAnte(id_a, "false");
-        console.log(response);
         if (response[0].validacion) {
             numAnte = 0;
             numAux = 0;
