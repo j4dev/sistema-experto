@@ -18,24 +18,27 @@
         $J=[];
         $I=0;
 
-        $antecedentes = $mysqli->query("SELECT `ID_REGLA`,`DESCRIP_ANT` FROM `antecedentes` WHERE `ID_REGLA` = '$id_regla'");
+        $antecedentes = $mysqli->query("SELECT `ID_REGLA`,`DESCRIP_ANT`, `ID_ANTECEDENTES` FROM `antecedentes` WHERE `ID_REGLA` = '$id_regla'");
         $cont_ant = $antecedentes->num_rows;
 
         while($cont_ant>0){
 
             $fila = $antecedentes->fetch_assoc();
+            $id_antecedente = $fila['ID_ANTECEDENTES'];
             $antecedente = $fila['DESCRIP_ANT'];
 
             $resp = antecedenteRegla($antecedente); //si regla  es antecedente
 
             if($resp != 0){
-                $antecedentes2 = $mysqli->query("SELECT `ID_REGLA`,`DESCRIP_ANT` FROM `antecedentes` WHERE `ID_REGLA` = '$resp'");
+                $antecedentes2 = $mysqli->query("SELECT `ID_REGLA`,`DESCRIP_ANT`,`ID_ANTECEDENTES` FROM `antecedentes` WHERE `ID_REGLA` = '$resp'");
                 $cont_ant2 = $antecedentes2->num_rows;
                 while($cont_ant2>0){
 
                     $fila2 = $antecedentes2->fetch_assoc();
+                    $id_antecedente2 = $fila2['ID_ANTECEDENTES'];
                     $antecedente2 = $fila2['DESCRIP_ANT'];
                     $J[$I]=[
+                        "id_antecedente"=>$id_antecedente2,
                         "antecedente"=>$antecedente2
                     ];
                     $I++;
@@ -43,6 +46,7 @@
                 }
             }else{
                 $J[$I]=[
+                    "id_antecedente"=>$id_antecedente,
                     "antecedente"=>$antecedente
                 ];
             }
