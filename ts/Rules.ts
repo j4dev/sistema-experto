@@ -11,15 +11,22 @@ function deleteChild() {
 var id_hipotesis = "";
 var inputTotal = 1;
 var inputUp:Array<string>=[];
+
 function addInputU(value:string,idI:string) {
     idI = "#i"+idI;
     let antece = document.querySelector<HTMLInputElement>("#updateante");
     let input = document.createElement("INPUT");
-    input.setAttribute("class","form-control");
+    input.setAttribute("class","form-control col-8");
     input.setAttribute("id",idI);
     input.setAttribute("style","text-transform:uppercase;");
     input.setAttribute("value",value);
     antece.appendChild(input);
+    
+    let inputP = document.createElement("INPUT");
+    inputP.setAttribute("class","form-control col-2");
+    inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
+    inputP.setAttribute("placeholder","%");
+    antece.appendChild(inputP);
     
 }
 
@@ -29,12 +36,18 @@ function addInput(value:string) {
     var id = "i"+inputTotal.toString();
     let antece = document.querySelector<HTMLInputElement>("#antecedentes");
     let input = document.createElement("INPUT");
-    input.setAttribute("class","form-control");
+    input.setAttribute("class","form-control col-8");
     input.setAttribute("id",id);
     input.setAttribute("style","text-transform:uppercase;");
     input.setAttribute("value",value);
     antece.appendChild(input);
     
+    let inputP = document.createElement("INPUT");
+    inputP.setAttribute("class","form-control col-2");
+    inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
+    inputP.setAttribute("placeholder","%");
+    inputP.setAttribute("value",value);
+    antece.appendChild(inputP);
 }
 
 /**
@@ -165,9 +178,10 @@ async function editRule() {
     /**
      * Obtencion de los antecedentes de los input
      */
+    
     var antecedentes: Array<any> = [];
     var idI = "";
-
+    
     inputUp.map(function (id:string) {
         idI = "#i"+id.toString();
         var dato = (<HTMLInputElement>document.getElementById(idI)).value.toString();
@@ -202,6 +216,7 @@ async function editRule() {
  *Funcion para mostrar el model donde se editaran los datos de la regla
  */
 async function modalEdit(id_regla:string) {
+    
     deleteChild();
     inputUp = [];
     var url = "http://localhost/sistemaexperto/api/rules/infoRule.php";
@@ -221,7 +236,6 @@ async function modalEdit(id_regla:string) {
     
     
     json.reglas.map(function (ante:any) {
-        
         addInputU(ante.antecedente,ante.id_antec);
         inputUp.push(ante.id_antec);
         
@@ -231,62 +245,17 @@ async function modalEdit(id_regla:string) {
 
     let hipotesis = document.querySelector<HTMLInputElement>("#hu");
     let input = document.createElement("INPUT");
-    input.setAttribute("class","form-control");
+    input.setAttribute("class","form-control col-8");
     input.setAttribute("id",json.id_regla);
     input.setAttribute("style","text-transform:uppercase;");
     input.setAttribute("value",json.conclusion);
     hipotesis.appendChild(input);
 
+    
+    let inputP = document.createElement("INPUT");
+    inputP.setAttribute("class","form-control col-2");
+    inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
+    inputP.setAttribute("placeholder","%");
+    hipotesis.appendChild(inputP);
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*var modalEdit = "<div class=\"modal-dialog\" role=\"document\">"+
-    "<div class=\"modal-content\">"+
-    "<div class=\"modal-header\">"+
-    "<h1 class=\"modal-title\">Regla</h1>"+
-    "</div>"+
-    "<div class=\"modal-body\">"+
-    "<div class=\"form-group\">"+
-    "<p>Antecedentes: </p>"+
-    "<div id=\"antecedentes\">"+
-    "<input type=\"text\" class=\"form-control\" id=\"i1\" style=\"text-transform:uppercase;\">"+
-    "<div id=\"antecedentes\">"+
-    "</div>"+
-    "</div>"+
-    "<div class=\"text-center\">"+
-    "<i class=\"zmdi zmdi-plus-circle zmdi-hc-3x\" onclick=\"addInput()\"></i>"+
-    "</div>"+
-    "<div class=\"form-group\">"+
-    "<p>Hipótesis:</p>"+
-    "<input type=\"text\" class=\"form-control\" id=\"hipotesis\""+
-    "style=\"text-transform:uppercase;\">"+
-    "</div>"+
-    "<div class=\"form-group\">"+
-    "<button type=\"submit\" class=\"btn btn-success\" onclick=\"addRule()\""+
-    "data-dismiss=\"modal\">Guardar</button>"+
-    "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancelar</button>"+
-    "</div>"+
-    "</div>"+
-    " </div>"+
-    "</div>"+
-    "</div>";*/
-

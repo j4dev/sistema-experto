@@ -24,22 +24,33 @@ function addInputU(value, idI) {
     idI = "#i" + idI;
     let antece = document.querySelector("#updateante");
     let input = document.createElement("INPUT");
-    input.setAttribute("class", "form-control");
+    input.setAttribute("class", "form-control col-8");
     input.setAttribute("id", idI);
     input.setAttribute("style", "text-transform:uppercase;");
     input.setAttribute("value", value);
     antece.appendChild(input);
+    let inputP = document.createElement("INPUT");
+    inputP.setAttribute("class", "form-control col-2");
+    inputP.setAttribute("style", "text-transform:uppercase; margin-left: 20px;");
+    inputP.setAttribute("placeholder", "%");
+    antece.appendChild(inputP);
 }
 function addInput(value) {
     inputTotal = inputTotal + 1;
     var id = "i" + inputTotal.toString();
     let antece = document.querySelector("#antecedentes");
     let input = document.createElement("INPUT");
-    input.setAttribute("class", "form-control");
+    input.setAttribute("class", "form-control col-8");
     input.setAttribute("id", id);
     input.setAttribute("style", "text-transform:uppercase;");
     input.setAttribute("value", value);
     antece.appendChild(input);
+    let inputP = document.createElement("INPUT");
+    inputP.setAttribute("class", "form-control col-2");
+    inputP.setAttribute("style", "text-transform:uppercase; margin-left: 20px;");
+    inputP.setAttribute("placeholder", "%");
+    inputP.setAttribute("value", value);
+    antece.appendChild(inputP);
 }
 /**
  * Funcion que permite agregar una nueva regla con multiples antecedentes
@@ -214,41 +225,16 @@ function modalEdit(id_regla) {
         id_hipotesis = json.id_regla;
         let hipotesis = document.querySelector("#hu");
         let input = document.createElement("INPUT");
-        input.setAttribute("class", "form-control");
+        input.setAttribute("class", "form-control col-8");
         input.setAttribute("id", json.id_regla);
         input.setAttribute("style", "text-transform:uppercase;");
         input.setAttribute("value", json.conclusion);
         hipotesis.appendChild(input);
+        let inputP = document.createElement("INPUT");
+        inputP.setAttribute("class", "form-control col-2");
+        inputP.setAttribute("style", "text-transform:uppercase; margin-left: 20px;");
+        inputP.setAttribute("placeholder", "%");
+        hipotesis.appendChild(inputP);
     });
 }
-/*var modalEdit = "<div class=\"modal-dialog\" role=\"document\">"+
-"<div class=\"modal-content\">"+
-"<div class=\"modal-header\">"+
-"<h1 class=\"modal-title\">Regla</h1>"+
-"</div>"+
-"<div class=\"modal-body\">"+
-"<div class=\"form-group\">"+
-"<p>Antecedentes: </p>"+
-"<div id=\"antecedentes\">"+
-"<input type=\"text\" class=\"form-control\" id=\"i1\" style=\"text-transform:uppercase;\">"+
-"<div id=\"antecedentes\">"+
-"</div>"+
-"</div>"+
-"<div class=\"text-center\">"+
-"<i class=\"zmdi zmdi-plus-circle zmdi-hc-3x\" onclick=\"addInput()\"></i>"+
-"</div>"+
-"<div class=\"form-group\">"+
-"<p>Hipótesis:</p>"+
-"<input type=\"text\" class=\"form-control\" id=\"hipotesis\""+
-"style=\"text-transform:uppercase;\">"+
-"</div>"+
-"<div class=\"form-group\">"+
-"<button type=\"submit\" class=\"btn btn-success\" onclick=\"addRule()\""+
-"data-dismiss=\"modal\">Guardar</button>"+
-"<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancelar</button>"+
-"</div>"+
-"</div>"+
-" </div>"+
-"</div>"+
-"</div>";*/
 //# sourceMappingURL=Rules.js.map
