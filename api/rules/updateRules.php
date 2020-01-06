@@ -12,10 +12,12 @@
     /*Datos de la regla*/
     $regla = $objson->id_regla_mod;
     $conclusion = $objson->hipotesis;
+    $re_porcentaje = $objson->re_porcentaje;
     /* */
 
     /* Datos de los antecedentes*/
     $tipo = $objson->vec_antecedentes;
+    $ant_porcentaje = $objson->ant_porcentaje;
     /* */
 
     if($regla != null)
@@ -23,11 +25,11 @@
         $J=[];
         $I=0;
 
-        $sql="UPDATE reglas SET CONCLUSION='$conclusion' WHERE ID_REGLA='$regla'";
+        $sql="UPDATE reglas SET CONCLUSION='$conclusion', Reg_porcentaje='$re_porcentaje' WHERE ID_REGLA='$regla'";
         $result=$mysqli->query($sql);
 
         foreach ($tipo as $valor) {
-            $sql="UPDATE antecedentes SET DESCRIP_ANT='$valor' WHERE ID_REGLA='$regla'";
+            $sql="UPDATE antecedentes SET DESCRIP_ANT='$valor',Ant_porcentaje='$ant_porcentaje' WHERE ID_REGLA='$regla'";
             $result=$mysqli->query($sql);
         }
         

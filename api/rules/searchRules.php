@@ -21,16 +21,17 @@
         $L=[];
         $P=0;
 
-        $result=$mysqli->query("SELECT ID_REGLA,CONCLUSION FROM reglas WHERE ID_USUARIO='$user'");
+        $result=$mysqli->query("SELECT ID_REGLA,CONCLUSION,Reg_porcentaje FROM reglas WHERE ID_USUARIO='$user'");
         $cont_regla = $result->num_rows;
 
         while($cont_regla>0){
           $fila = $result->fetch_assoc();
           $id_regla = $fila["ID_REGLA"];
           $conclusion = $fila["CONCLUSION"];
+          $reg_porcentaje = $fila["Reg_porcentaje"];
           
 
-          $antecedente=$mysqli->query("SELECT ID_ANTECEDENTES,DESCRIP_ANT  FROM antecedentes WHERE ID_REGLA='$id_regla'");
+          $antecedente=$mysqli->query("SELECT ID_ANTECEDENTES,DESCRIP_ANT,Ant_porcentaje  FROM antecedentes WHERE ID_REGLA='$id_regla'");
           $cont = $antecedente->num_rows;
           
           $J=[];
@@ -39,10 +40,12 @@
             $fila_ant = $antecedente->fetch_assoc();
             $descripc_ant = $fila_ant["DESCRIP_ANT"];
             $id_ant = $fila_ant["ID_ANTECEDENTES"];
-            
+            $ant_porcentaje = $fila_ant["Ant_porcentaje"];
+
             $J[$I] = [
                 "id_antec"=>$id_ant,
                 "antecedente"=>$descripc_ant,
+                "ant_porcentaje"=>$ant_porcentaje,
             ];
             $I++;
             $cont--;

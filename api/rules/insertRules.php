@@ -12,11 +12,12 @@
     /*Datos de la regla*/
     $user = $objson->usuario;
     $conclusion = $objson->hipotesis;
+    $re_porcentaje = $objson->re_porcentaje;
     /* */
 
     /* Datos de los antecedentes*/
     $tipo = $objson->vec_antecedentes;
-    
+    $ant_porcentaje = $objson->ant_porcentaje;
     /* */
 
     if($user != null)
@@ -24,8 +25,8 @@
         $J=[];
         $I=0;
 
-        $sql = "INSERT INTO `reglas`(`CONCLUSION`, `ID_USUARIO`) VALUES
-                ('$conclusion','$user')";
+        $sql = "INSERT INTO `reglas`(`CONCLUSION`, `ID_USUARIO`, `Reg_porcentaje`) VALUES
+                ('$conclusion','$user','$re_porcentaje')";
         $result=$mysqli->query($sql);
 
         $last_id = $mysqli->query("SELECT LAST_INSERT_ID() AS id_regla");
@@ -33,8 +34,8 @@
         $id_regla = $aux_id['id_regla'];
 
         foreach ($tipo as $valor) {
-            $sql = "INSERT INTO `antecedentes`(`ID_REGLA`, `DESCRIP_ANT`) VALUES
-            ('$id_regla','$valor')";
+            $sql = "INSERT INTO `antecedentes`(`ID_REGLA`, `DESCRIP_ANT`,`Ant_porcentaje`) VALUES
+            ('$id_regla','$valor','$ant_porcentaje')";
             $result=$mysqli->query($sql);
         }
         
