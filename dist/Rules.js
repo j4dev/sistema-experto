@@ -146,7 +146,7 @@ function listRules() {
             rule = rule + "<tr>" +
                 "<th scope=\"row\">" + rules.id_regla + "</th>" +
                 "<td>" + rules.conclusion + "</td>" +
-                "<td>" + "" + "</td>" +
+                "<td>" + rules.reg_porcentaje + "</td>" +
                 "<td>" + antecedente +
                 "</td>" +
                 "<td>" + pantecedente +
