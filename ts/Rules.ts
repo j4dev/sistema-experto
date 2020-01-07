@@ -145,7 +145,7 @@ async function listRules() {
     
     res.reglas.map(function (rules:any) {
         rules.antecedentes.map(function (ante:any) {
-            antecedente = antecedente + "<li>"+ante.antecedente+"</li>";
+            antecedente = antecedente + "<li >"+ante.antecedente+"</li>";
             pantecedente = pantecedente + "<li>"+ante.ant_porcentaje+"</li>";
         });
 
@@ -153,7 +153,7 @@ async function listRules() {
         "<th scope=\"row\">"+rules.id_regla+"</th>"+
         "<td>"+rules.conclusion+"</td>"+
         "<td>"+rules.reg_porcentaje+"</td>"+
-        "<td>"+antecedente+
+        "<td class=\"col\">"+antecedente+
         "</td>"+
         "<td>"+pantecedente+
         "</td>"+
