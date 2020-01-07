@@ -53,6 +53,7 @@
           $L[$P]=[
           "id_regla"=>$id_regla,
           "conclusion"=>$conclusion,
+          "reg_porcentaje"=>$reg_porcentaje,
           "antecedentes"=>$J
           ];
           $P++;
