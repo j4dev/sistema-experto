@@ -30,6 +30,7 @@ function addInputU(value, idI) {
     input.setAttribute("value", value);
     antece.appendChild(input);
     let inputP = document.createElement("INPUT");
+    inputP.setAttribute("type", "number");
     inputP.setAttribute("class", "form-control col-2");
     inputP.setAttribute("style", "text-transform:uppercase; margin-left: 20px;");
     inputP.setAttribute("placeholder", "%");
@@ -45,8 +46,11 @@ function addInput(value) {
     input.setAttribute("style", "text-transform:uppercase;");
     input.setAttribute("value", value);
     antece.appendChild(input);
+    var idp = "p" + inputTotal.toString();
     let inputP = document.createElement("INPUT");
+    inputP.setAttribute("type", "number");
     inputP.setAttribute("class", "form-control col-2");
+    inputP.setAttribute("id", idp);
     inputP.setAttribute("style", "text-transform:uppercase; margin-left: 20px;");
     inputP.setAttribute("placeholder", "%");
     inputP.setAttribute("value", value);
@@ -61,13 +65,22 @@ function addRule() {
          * Obtencion de los antecedentes de los input
          */
         var antecedentes = [];
+        var vecporcentaje = [];
         var id = "";
+        var idp = "";
         for (let i = 1; i <= inputTotal; i++) {
+            idp = "#p" + i.toString();
             id = "#i" + i.toString();
+            var porcentaje = document.querySelector(idp).value.toString();
             var dato = document.querySelector(id).value.toString();
             antecedentes.push(dato);
+            vecporcentaje.push(porcentaje);
         }
+        /**
+         * Obtencion de la hipotesis.
+         */
         var hipotesis = document.querySelector("#hipotesis").value.toString();
+        var pHipotesis = document.querySelector("#pHipotesis").value.toString();
         /**
          * Obtener usuarios del local Storage
          */
@@ -75,20 +88,25 @@ function addRule() {
         var data = {
             usuario: user.id_us,
             hipotesis: hipotesis,
-            vec_antecedentes: antecedentes
+            vec_antecedentes: antecedentes,
+            ant_porcentaje: vecporcentaje,
+            re_porcentaje: pHipotesis
         };
+        console.log(JSON.stringify(data));
+        /*
         var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
-        const response = yield fetch(url, {
+        const response = await fetch(url, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
         });
-        const json = yield response.json();
-        document.querySelector("#i1").value = "";
-        document.querySelector("#hipotesis").value = "";
-        listRules();
+        const json = await response.json();
+        
+        document.querySelector<HTMLInputElement>("#i1").value = "";
+        document.querySelector<HTMLInputElement>("#hipotesis").value = "";
+        listRules();*/
     });
 }
 /**

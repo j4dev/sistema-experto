@@ -209,4 +209,4 @@ function createTable(jsonAnte, jsonRules) {
     var listadoAnte = document.body.querySelector("#table_ante");
     listadoAnte.innerHTML = tableAnte;
 }
-//# sourceMappingURL=progesivo.js.map
+//# sourceMappingURL=Progesivo.js.map

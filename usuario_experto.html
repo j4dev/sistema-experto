@@ -89,9 +89,9 @@
                             </div>
 
                             <div id="antecedentes" class="form-inline">
-                                <input type="text" class="form-control col-8" id="i1" style="text-transform:uppercase;">
-                                <input type="text" class="form-control col-2"
-                                    style="text-transform:uppercase; margin-left: 20px;" placeholder="%">
+                                <input type="text" class="form-control col-8" id="i1" style="text-transform:uppercase;" required>
+                                <input type="number" class="form-control col-2" id="p1" 
+                                    style="text-transform:uppercase; margin-left: 20px;" placeholder="%" minlength="1" maxlength="3">
                             </div>
                             <div class="text-center">
                                 <i class="zmdi zmdi-plus-circle zmdi-hc-3x" onclick="addInput('')"></i>
@@ -101,10 +101,10 @@
                                 <p style="margin-left: 20px;">Hipótesis:</p>
                                 <div class="form-inline">
                                     <input type="text" class="form-control col-8" id="hipotesis"
-                                        style="text-transform:uppercase;">
+                                        style="text-transform:uppercase;" required>
                                     &nbsp; &nbsp;
-                                    <input type="text" class="form-control col-2 right" id="pHipotesis" placeholder="%"
-                                        style="text-transform:uppercase;  margin-left: 20px;">
+                                    <input type="number" class="form-control col-2 right" id="pHipotesis" placeholder="%" 
+                                        style="text-transform:uppercase;  margin-left: 20px;" minlength="1" maxlength="3">
                                 </div>
                             </div>
 

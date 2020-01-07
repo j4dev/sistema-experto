@@ -34,7 +34,7 @@
         $id_regla = $aux_id['id_regla'];
 
         foreach ($tipo as $valor) {
-            $sql = "INSERT INTO `antecedentes`(`ID_REGLA`, `DESCRIP_ANT`,`Ant_porcentaje`) VALUES
+            $sql = "INSERT INTO `antecedentes`(`ID_REGLA`, `DESCRIP_ANT`,`Ant_porcentaje`) VALUES 
             ('$id_regla','$valor','$ant_porcentaje')";
             $result=$mysqli->query($sql);
         }

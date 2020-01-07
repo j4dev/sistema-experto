@@ -23,6 +23,7 @@ function addInputU(value:string,idI:string) {
     antece.appendChild(input);
     
     let inputP = document.createElement("INPUT");
+    inputP.setAttribute("type","number");
     inputP.setAttribute("class","form-control col-2");
     inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
     inputP.setAttribute("placeholder","%");
@@ -42,8 +43,11 @@ function addInput(value:string) {
     input.setAttribute("value",value);
     antece.appendChild(input);
     
+    var idp = "p"+inputTotal.toString();
     let inputP = document.createElement("INPUT");
+    inputP.setAttribute("type","number");
     inputP.setAttribute("class","form-control col-2");
+    inputP.setAttribute("id",idp);
     inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
     inputP.setAttribute("placeholder","%");
     inputP.setAttribute("value",value);
@@ -59,13 +63,22 @@ async function addRule() {
      * Obtencion de los antecedentes de los input
      */
     var antecedentes: Array<any> = [];
+    var vecporcentaje: Array<any> = [];
     var id = "";
+    var idp = "";
     for (let i = 1; i <= inputTotal; i++) {
+        idp = "#p"+i.toString();
         id = "#i"+i.toString();
+        var porcentaje = document.querySelector<HTMLInputElement>(idp).value.toString();
         var dato = document.querySelector<HTMLInputElement>(id).value.toString();
         antecedentes.push(dato); 
+        vecporcentaje.push(porcentaje);
     }
+    /**
+     * Obtencion de la hipotesis.
+     */
     var hipotesis  = document.querySelector<HTMLInputElement>("#hipotesis").value.toString();
+    var pHipotesis  = document.querySelector<HTMLInputElement>("#pHipotesis").value.toString();
 
     /**
      * Obtener usuarios del local Storage
@@ -74,9 +87,12 @@ async function addRule() {
     var data = {
         usuario: user.id_us,
         hipotesis: hipotesis,
-        vec_antecedentes: antecedentes
+        vec_antecedentes: antecedentes,
+        ant_porcentaje: vecporcentaje,
+        re_porcentaje: pHipotesis
     };
-    
+    console.log(JSON.stringify(data));
+    /*
     var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
     const response = await fetch(url, {
         method: "POST",
@@ -89,7 +105,7 @@ async function addRule() {
     
     document.querySelector<HTMLInputElement>("#i1").value = "";
     document.querySelector<HTMLInputElement>("#hipotesis").value = "";
-    listRules();
+    listRules();*/
 }
 
 /**
