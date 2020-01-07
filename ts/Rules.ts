@@ -92,7 +92,7 @@ async function addRule() {
         re_porcentaje: pHipotesis
     };
     console.log(JSON.stringify(data));
-    /*
+    
     var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
     const response = await fetch(url, {
         method: "POST",
@@ -105,7 +105,7 @@ async function addRule() {
     
     document.querySelector<HTMLInputElement>("#i1").value = "";
     document.querySelector<HTMLInputElement>("#hipotesis").value = "";
-    listRules();*/
+    listRules();
 }
 
 /**
@@ -140,22 +140,28 @@ async function listRules() {
     const res = await getAllRules();
     
     var antecedente:string = "";
+    var pantecedente:string = "";
     var rule:string = "";
     
     res.reglas.map(function (rules:any) {
         rules.antecedentes.map(function (ante:any) {
             antecedente = antecedente + "<li>"+ante.antecedente+"</li>";
+            pantecedente = pantecedente + "<li>"+ante.ant_porcentaje+"</li>";
         });
 
         rule = rule + "<tr>"+
         "<th scope=\"row\">"+rules.id_regla+"</th>"+
         "<td>"+rules.conclusion+"</td>"+
+        "<td>"+""+"</td>"+
         "<td>"+antecedente+
+        "</td>"+
+        "<td>"+pantecedente+
         "</td>"+
         "<td class=\"text-center\"><button type=\"button\" class=\"zmdi zmdi-edit zmdi-hc-2x\" data-toggle=\"modal\" data-target=\"#ModalUpdate\" onClick=\"modalEdit("+rules.id_regla+")\"></button></td>"+
         "<td class=\"text-center\"><i class=\"zmdi zmdi-delete zmdi-hc-2x\"  onClick=\"deleteRule("+rules.id_regla+")\"></i></td>"+
         "</tr>";
         antecedente = "";
+        pantecedente = "";
     });
 
     var listado = document.body.querySelector("#list_reglas");
