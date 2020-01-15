@@ -7,11 +7,11 @@
     
     $json = file_get_contents('php://input');
 
-    //$objson =json_decode($json);
+    $objson =json_decode($json);
 
     /*Datos de la regla*/
-    //$id_rule = $objson->id_regla;
-    $id_rule = 1;
+    $id_rule = $objson->id_regla;
+    //$id_rule = 1;
     $min = 1;
     if($id_rule != null)
     {
