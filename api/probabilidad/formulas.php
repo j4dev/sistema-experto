@@ -12,7 +12,7 @@
     /*Datos de la regla*/
     //$id_rule = $objson->id_regla;
     $id_rule = 1;
-
+    $min = 1;
     if($id_rule != null)
     {
         $J=[];
@@ -43,6 +43,9 @@
               $MI_h_e = MI_h_e($p_h,$p_h_e);
               $CF_h_e = $MC_h_e - $MI_h_e;
 
+              if($CF_h_e < $min)// para  el min CF
+                $min = $CF_h_e;
+
             $J[$I] = [
                 "id_antec"=>$id_ant,
                 "antecedente"=>$descripc_ant,
@@ -61,6 +64,7 @@
             "id_regla"=>$id_regla,
             "conclusion"=>$conclusion_regla,
             "reg_porcentaje"=>$reg_porcentaje,
+            "valor_certidumbre"=>$min,
             "reglas" => $J
           ];
 
@@ -69,6 +73,18 @@
         $J=["validacion"=>false];
         echo json_encode($J);
       }
+
+      $result2 = $mysqli->query("SELECT * FROM `antecedentes` WHERE `DESCRIP_ANT`='$conclusion_regla'"); 
+      $num_row = $result2->num_rows;
+      if($num_row != 0){
+        $sql="UPDATE antecedentes SET Ant_porcentaje='$min' WHERE `DESCRIP_ANT`='$conclusion_regla'";
+            $result3=$mysqli->query($sql);
+      }
+
+      $sql="UPDATE reglas SET Reg_porcentaje='$min' WHERE ID_REGLA='$id_rule'";
+        $result=$mysqli->query($sql);
+  
+    
     $mysqli->close();
 
     

@@ -15,9 +15,7 @@
 
     if($regla != null)
     {
-
         $sql = $mysqli->query("INSERT INTO temporalreglas (regla, respuesta) VALUES ('$regla', '$respuesta')");
-
     }
     $mysqli->close();
 
