@@ -140,14 +140,14 @@ function listRules() {
         var rule = "";
         res.reglas.map(function (rules) {
             rules.antecedentes.map(function (ante) {
-                antecedente = antecedente + "<li>" + ante.antecedente + "</li>";
+                antecedente = antecedente + "<li >" + ante.antecedente + "</li>";
                 pantecedente = pantecedente + "<li>" + ante.ant_porcentaje + "</li>";
             });
             rule = rule + "<tr>" +
                 "<th scope=\"row\">" + rules.id_regla + "</th>" +
                 "<td>" + rules.conclusion + "</td>" +
                 "<td>" + rules.reg_porcentaje + "</td>" +
-                "<td>" + antecedente +
+                "<td class=\"col\">" + antecedente +
                 "</td>" +
                 "<td>" + pantecedente +
                 "</td>" +
