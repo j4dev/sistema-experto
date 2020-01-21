@@ -12,7 +12,7 @@ var id_hipotesis = "";
 var inputTotal = 1;
 var inputUp:Array<string>=[];
 
-function addInputU(value:string,idI:string) {
+function addInputU(value:string,idI:string,pAnte:string) {
     idI = "#i"+idI;
     let antece = document.querySelector<HTMLInputElement>("#updateante");
     let input = document.createElement("INPUT");
@@ -26,7 +26,7 @@ function addInputU(value:string,idI:string) {
     inputP.setAttribute("type","number");
     inputP.setAttribute("class","form-control col-2");
     inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
-    inputP.setAttribute("placeholder","%");
+    inputP.setAttribute("value",pAnte);
     antece.appendChild(inputP);
     
 }
@@ -207,6 +207,8 @@ async function editRule() {
     inputUp.map(function (id:string) {
         idI = "#i"+id.toString();
         var dato = (<HTMLInputElement>document.getElementById(idI)).value.toString();
+        console.log(dato);
+        
         antecedentes.push(dato);
     });
 
@@ -258,7 +260,7 @@ async function modalEdit(id_regla:string) {
     
     
     json.reglas.map(function (ante:any) {
-        addInputU(ante.antecedente,ante.id_antec);
+        addInputU(ante.antecedente,ante.id_antec,ante.ant_porcentaje);
         inputUp.push(ante.id_antec);
         
     });
@@ -268,7 +270,7 @@ async function modalEdit(id_regla:string) {
     let hipotesis = document.querySelector<HTMLInputElement>("#hu");
     let input = document.createElement("INPUT");
     input.setAttribute("class","form-control col-8");
-    input.setAttribute("id",json.id_regla);
+    input.setAttribute("id",id_hipotesis);
     input.setAttribute("style","text-transform:uppercase;");
     input.setAttribute("value",json.conclusion);
     hipotesis.appendChild(input);
@@ -276,8 +278,9 @@ async function modalEdit(id_regla:string) {
     
     let inputP = document.createElement("INPUT");
     inputP.setAttribute("class","form-control col-2");
+    inputP.setAttribute("id","p"+id_hipotesis);
     inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
-    inputP.setAttribute("placeholder","%");
+    inputP.setAttribute("value",json.reg_porcentaje);
     hipotesis.appendChild(inputP);
 
 }
