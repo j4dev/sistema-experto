@@ -9,14 +9,13 @@
 
     $objson =json_decode($json);
 
-    /*Datos de la regla*/
-    $id_rule = $objson->id_regla;
-    //$id_rule = 1;
-    $min = 1;
-    if($id_rule != null)
-    {
-        $J=[];
-        $I=0;
+    /*id reglas*/
+
+    $id = $objson->vec_id;
+
+    $max_prob = 0;
+    foreach ($id as $id_rule) {
+        $min = 1;
 
         $result=$mysqli->query("SELECT ID_REGLA,CONCLUSION,Reg_porcentaje FROM reglas WHERE ID_REGLA='$id_rule'");
         $fila_ant = $result->fetch_assoc();
@@ -45,35 +44,15 @@
 
               if($CF_h_e < $min)// para  el min CF
                 $min = $CF_h_e;
-
-            $J[$I] = [
-                "id_antec"=>$id_ant,
-                "antecedente"=>$descripc_ant,
-                "ant_porcentaje"=>$ant_porcentaje,
-                "prob(h/e)"=>$p_h_e,
-                "MC(h/e)"=>$MC_h_e,
-                "MI(h/e)"=>$MI_h_e,
-                "CF(h/e)" =>$CF_h_e,
-            ];
-            $I++;
             $cont--;
         }
         
-          $H= [
-            "validacion"=>true,
-            "id_regla"=>$id_regla,
-            "conclusion"=>$conclusion_regla,
-            "reg_porcentaje"=>$reg_porcentaje,
-            "valor_certidumbre"=>$min,
-            "reglas" => $J
-          ];
-
-        echo json_encode($H);
-    }else{
-        $J=["validacion"=>false];
-        echo json_encode($J);
-      }
-
+        if($max_prob < $min){ //para la max probabilidad
+          $max_prob = $min;
+          $conclusion = $conclusion_regla ;
+        } 
+          
+    
       $result2 = $mysqli->query("SELECT * FROM `antecedentes` WHERE `DESCRIP_ANT`='$conclusion_regla'"); 
       $num_row = $result2->num_rows;
       if($num_row != 0){
@@ -83,12 +62,20 @@
 
       $sql="UPDATE reglas SET Reg_porcentaje='$min' WHERE ID_REGLA='$id_rule'";
         $result=$mysqli->query($sql);
-  
+    } //fin foreach
     
+
+    $H= [
+      "conclusion"=>$conclusion,
+      "valor_certidumbre"=>$max_prob
+    ];
+
+  echo json_encode($H);
+
     $mysqli->close();
 
     
-    //formula bayes
+    //formula 
     
     function p_h_e($p_e_h, $p_h){   
         $p__h = 1-$p_h;
