@@ -1,3 +1,22 @@
+var list_id: Array<number>=[];
+
+async function requestPorcentaje() {
+    var url = "http://localhost/sistemaexperto/api/probabilidad/formulas.php";
+    
+    var data={
+        vec_id: list_id
+    };
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    const json = await response.json();
+    return json;
+}
+
 async function requestFirstRule() {
     var url = "http://localhost/sistemaexperto/api/progresivo/getFirstRule.php";
     
@@ -36,14 +55,15 @@ async function requestRules(id_regla:string, id_ant:string,res:boolean) {
 }
 
 async function requestAllRules(id_r:string,id_a:string,res:boolean) {
-
-    if (id_a != null) {
+    
+    if (id_a != null && id_r != '13') {
         const response = await requestRules(id_r,id_a,res);
+        
         
         var pr = JSON.parse(localStorage.getItem("pregunta"));
         
         if (response[0].id_regla != pr.id_regla && res) {
-            
+            list_id.push(pr.id_regla);
             insertRTemporal(res);
 
         } else {
@@ -63,7 +83,7 @@ async function requestAllRules(id_r:string,id_a:string,res:boolean) {
         }
         
     }else{
-
+        const porcentaje = await requestPorcentaje();
         var pregunta = "<p class=\"alert alert-warning text-center\">NO EXISTEN MAS REGLAS REVISE LA RESPUESTA</p>";
         var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentes()\">VER DETALLE</button><br>";
 
@@ -82,7 +102,7 @@ async function requestAllRules(id_r:string,id_a:string,res:boolean) {
         });
 
         var datos = document.querySelector("#resultado");
-        datos.innerHTML = "<center><h3><b>"+resultado+"</b></h3></center>"+"<br><br>"+result;
+        datos.innerHTML = "<center><h3><b>"+porcentaje.conclusion+"<p>Con un valor de certidumbre de "+porcentaje.valor_certidumbre+"</></b></h3></center>"+"<br><br>"+result;
 
     }
     var datos = document.querySelector("#pregunta");

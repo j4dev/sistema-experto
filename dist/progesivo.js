@@ -8,6 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var list_id = [];
+function requestPorcentaje() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var url = "http://localhost/sistemaexperto/api/probabilidad/formulas.php";
+        var data = {
+            vec_id: list_id
+        };
+        const response = yield fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const json = yield response.json();
+        return json;
+    });
+}
 function requestFirstRule() {
     return __awaiter(this, void 0, void 0, function* () {
         var url = "http://localhost/sistemaexperto/api/progresivo/getFirstRule.php";
@@ -42,10 +60,11 @@ function requestRules(id_regla, id_ant, res) {
 }
 function requestAllRules(id_r, id_a, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (id_a != null) {
+        if (id_a != null && id_r != '13') {
             const response = yield requestRules(id_r, id_a, res);
             var pr = JSON.parse(localStorage.getItem("pregunta"));
             if (response[0].id_regla != pr.id_regla && res) {
+                list_id.push(pr.id_regla);
                 insertRTemporal(res);
             }
             else {
@@ -64,8 +83,7 @@ function requestAllRules(id_r, id_a, res) {
             }
         }
         else {
-            
-            
+            const porcentaje = yield requestPorcentaje();
             var pregunta = "<p class=\"alert alert-warning text-center\">NO EXISTEN MAS REGLAS REVISE LA RESPUESTA</p>";
             var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentes()\">VER DETALLE</button><br>";
             var urlRules = "http://localhost/sistemaexperto/api/progresivo/listAnswersReglas.php";
@@ -81,12 +99,11 @@ function requestAllRules(id_r, id_a, res) {
                 resultado = rule.regla;
             });
             var datos = document.querySelector("#resultado");
-            datos.innerHTML = "<center><h3><b>" + resultado + "</b></h3></center>" + "<br><br>" + result;
+            datos.innerHTML = "<center><h3><b>" + porcentaje.conclusion + "<p>Con un valor de certidumbre de " + porcentaje.valor_certidumbre + "</></b></h3></center>" + "<br><br>" + result;
         }
         var datos = document.querySelector("#pregunta");
         datos.innerHTML = pregunta;
     });
-
 }
 function firstQuestion() {
     return __awaiter(this, void 0, void 0, function* () {
