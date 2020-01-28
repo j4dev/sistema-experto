@@ -23,7 +23,7 @@
         $conclusion_regla = $fila_ant["CONCLUSION"];
         $reg_porcentaje = $fila_ant["Reg_porcentaje"];
         $p_h = (float)$reg_porcentaje;
-       
+      
        // echo $p_h;
         $antecedente=$mysqli->query("SELECT ID_ANTECEDENTES,DESCRIP_ANT,Ant_porcentaje  FROM antecedentes WHERE ID_REGLA='$id_rule'");
           $cont = $antecedente->num_rows;

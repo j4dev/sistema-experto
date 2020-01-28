@@ -64,6 +64,8 @@ function requestAllRules(id_r, id_a, res) {
             }
         }
         else {
+            
+            
             var pregunta = "<p class=\"alert alert-warning text-center\">NO EXISTEN MAS REGLAS REVISE LA RESPUESTA</p>";
             var result = "<button class=\"btn btn btn-success\" type=\"button\" onClick=\"listRulesAntecedentes()\">VER DETALLE</button><br>";
             var urlRules = "http://localhost/sistemaexperto/api/progresivo/listAnswersReglas.php";
@@ -84,6 +86,7 @@ function requestAllRules(id_r, id_a, res) {
         var datos = document.querySelector("#pregunta");
         datos.innerHTML = pregunta;
     });
+
 }
 function firstQuestion() {
     return __awaiter(this, void 0, void 0, function* () {
