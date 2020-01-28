@@ -12,11 +12,12 @@
     $id_usuario = $objson->id_usuario;
     $pregunta = $objson->pregunta;
     $conclusion = $objson->conclusion;
+    $porcentaje = $objson->porcentaje;
 
     if($id_usuario != null)
     {
 
-        $sql = $mysqli->query("INSERT INTO temporal (ID_USUARIO, PREGUNTA_TEMP, CONCLUSION_TEMP) VALUES ('$id_usuario', '$pregunta', '$conclusion')");
+        $sql = $mysqli->query("INSERT INTO temporal (ID_USUARIO, PREGUNTA_TEMP, CONCLUSION_TEMP, Temp_porcentaje) VALUES ('$id_usuario', '$pregunta', '$conclusion', '$porcentaje')");
         
 
     }

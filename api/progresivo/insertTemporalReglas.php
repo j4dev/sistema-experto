@@ -12,10 +12,11 @@
 
     $regla = $objson->regla;
     $respuesta = $objson->respuesta;
+    $porcentaje = $objson->porcentaje;
 
     if($regla != null)
     {
-        $sql = $mysqli->query("INSERT INTO temporalreglas (regla, respuesta) VALUES ('$regla', '$respuesta')");
+        $sql = $mysqli->query("INSERT INTO temporalreglas (regla, respuesta,Temp_reg_porcentaje) VALUES ('$regla', '$respuesta', '$porcentaje')");
     }
     $mysqli->close();
 

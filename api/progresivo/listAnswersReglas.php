@@ -9,7 +9,7 @@
         $J=[];
         $I=0;
 
-        $reglas=$mysqli->query("SELECT `regla`, `respuesta` FROM `temporalreglas`");
+        $reglas=$mysqli->query("SELECT `regla`, `respuesta`,`Temp_reg_porcentaje` FROM `temporalreglas`");
         $cont_regla = $reglas->num_rows;
 
         while($cont_regla>0){
@@ -17,11 +17,12 @@
         $fila = $reglas->fetch_assoc();
         $regla = $fila['regla'];
         $respuesta = $fila['respuesta'];
-        
+        $porcentaje = $fila['Temp_reg_porcentaje'];
             
             $J[$I]=[
                 "regla"=>$regla,
                 "respuesta"=>$respuesta,
+                "porcentaje"=>$porcentaje,
             ];
 
         $I++;
