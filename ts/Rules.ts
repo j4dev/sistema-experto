@@ -139,7 +139,7 @@ async function getAllRules() {
  * Funcion que crea los elementos HTML para listar las reglas en un tabla
  */
 async function listRules() {
-    
+
     const res = await getAllRules();
     
     var antecedente:string = "";
@@ -218,7 +218,11 @@ async function editRule() {
     });
 
     var hipotesis  = (<HTMLInputElement>document.getElementById(id_hipotesis)).value.toString();
-    var probaHipotesis  = (<HTMLInputElement>document.getElementById("p"+id_hipotesis)).value.toString();
+    var probaHipotesis  = (<HTMLInputElement>document.getElementById("ph"+id_hipotesis)).value.toString();
+    
+    
+    console.log(probaHipotesis);
+    
     var data = {
         id_regla_mod: id_hipotesis,
         hipotesis: hipotesis,
@@ -287,7 +291,7 @@ async function modalEdit(id_regla:string) {
     
     let inputP = document.createElement("INPUT");
     inputP.setAttribute("class","form-control col-2");
-    inputP.setAttribute("id","p"+id_hipotesis);
+    inputP.setAttribute("id","ph"+id_hipotesis);
     inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
     inputP.setAttribute("value",json.reg_porcentaje);
     hipotesis.appendChild(inputP);

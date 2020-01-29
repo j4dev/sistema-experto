@@ -55,10 +55,9 @@ async function requestRules(id_regla:string, id_ant:string,res:boolean) {
 }
 
 async function requestAllRules(id_r:string,id_a:string,res:boolean) {
-    
-    if (id_a != null && id_r != '13') {
+
+    if (id_a != null) {
         const response = await requestRules(id_r,id_a,res);
-        
         
         var pr = JSON.parse(localStorage.getItem("pregunta"));
         
@@ -140,11 +139,13 @@ async function insertTemporal(res:boolean) {
     
     var data = {
         id_usuario:user.id_us,
+        id_ante:pr.id_antecedente,
         pregunta:pr.antecedente,
         conclusion:String(res)
     };
 
     var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporal.php";
+    
     
     const response = await fetch(url, {
         method: "POST",
@@ -168,9 +169,9 @@ async function insertRTemporal(res:boolean) {
     
     var data = {
         regla:pr.conlusion,
+        id_regla:pr.id_regla,
         respuesta:String(res)  
     };
-    
     var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporalReglas.php";
     
     const response = await fetch(url, {
@@ -221,6 +222,7 @@ function createTable(jsonAnte:any,jsonRules:any) {
         antecedentes = antecedentes + "<tr>"+
         "<th scope=\"row\">"+ante.antecedente+"</th>"+
         "<td>"+ante.respuesta+"</td>"+
+        "<td>"+ante.porcentaje+"</td>"+
         "</tr>";
     });
     var tableRules = "<br><br><br>"+
@@ -247,9 +249,9 @@ function createTable(jsonAnte:any,jsonRules:any) {
     antecedentes+
     "</tbody>"+
     "</table>";
-
-    var listadoRules = document.body.querySelector("#table_rules");
-    listadoRules.innerHTML = tableRules;
     var listadoAnte = document.body.querySelector("#table_ante");
     listadoAnte.innerHTML = tableAnte;
+    var listadoRules = document.body.querySelector("#table_rules");
+    listadoRules.innerHTML = tableRules;
+
 }

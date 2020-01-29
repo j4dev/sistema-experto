@@ -12,11 +12,16 @@
 
     $regla = $objson->regla;
     $respuesta = $objson->respuesta;
-    $porcentaje = $objson->porcentaje;
+    
+    $id_regla = $objson->id_regla;
 
     if($regla != null)
     {
-        $sql = $mysqli->query("INSERT INTO temporalreglas (regla, respuesta,Temp_reg_porcentaje) VALUES ('$regla', '$respuesta', '$porcentaje')");
+        $sqlR = $mysqli->query("SELECT Reg_porcentaje AS porcentaje FROM `reglas` WHERE `ID_REGLA`=$id_regla");
+        echo "SELECT Reg_porcentaje AS porcentaje FROM `reglas` WHERE `ID_REGLA`=$id_regla";
+        $id = $sqlR->fetch_assoc();
+        $porcentajeR = $id['porcentaje'];
+        $sql = $mysqli->query("INSERT INTO temporalreglas (regla, respuesta,Temp_reg_porcentaje) VALUES ('$regla', '$respuesta', '$porcentajeR')");
     }
     $mysqli->close();
 

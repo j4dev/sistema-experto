@@ -60,7 +60,7 @@ function requestRules(id_regla, id_ant, res) {
 }
 function requestAllRules(id_r, id_a, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (id_a != null && id_r != '13') {
+        if (id_a != null) {
             const response = yield requestRules(id_r, id_a, res);
             var pr = JSON.parse(localStorage.getItem("pregunta"));
             if (response[0].id_regla != pr.id_regla && res) {
@@ -129,6 +129,7 @@ function insertTemporal(res) {
         var user = JSON.parse(localStorage.getItem("user"));
         var data = {
             id_usuario: user.id_us,
+            id_ante: pr.id_antecedente,
             pregunta: pr.antecedente,
             conclusion: String(res)
         };
@@ -152,6 +153,7 @@ function insertRTemporal(res) {
         var pr = JSON.parse(localStorage.getItem("pregunta"));
         var data = {
             regla: pr.conlusion,
+            id_regla: pr.id_regla,
             respuesta: String(res)
         };
         var url = "http://localhost/sistemaexperto/api/progresivo/insertTemporalReglas.php";
@@ -198,6 +200,7 @@ function createTable(jsonAnte, jsonRules) {
         antecedentes = antecedentes + "<tr>" +
             "<th scope=\"row\">" + ante.antecedente + "</th>" +
             "<td>" + ante.respuesta + "</td>" +
+            "<td>" + ante.porcentaje + "</td>" +
             "</tr>";
     });
     var tableRules = "<br><br><br>" +
@@ -224,9 +227,9 @@ function createTable(jsonAnte, jsonRules) {
         antecedentes +
         "</tbody>" +
         "</table>";
-    var listadoRules = document.body.querySelector("#table_rules");
-    listadoRules.innerHTML = tableRules;
     var listadoAnte = document.body.querySelector("#table_ante");
     listadoAnte.innerHTML = tableAnte;
+    var listadoRules = document.body.querySelector("#table_rules");
+    listadoRules.innerHTML = tableRules;
 }
 //# sourceMappingURL=Progesivo.js.map

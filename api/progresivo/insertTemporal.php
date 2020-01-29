@@ -12,12 +12,15 @@
     $id_usuario = $objson->id_usuario;
     $pregunta = $objson->pregunta;
     $conclusion = $objson->conclusion;
-    $porcentaje = $objson->porcentaje;
+    $id_ante = $objson->id_ante;
 
     if($id_usuario != null)
     {
-
-        $sql = $mysqli->query("INSERT INTO temporal (ID_USUARIO, PREGUNTA_TEMP, CONCLUSION_TEMP, Temp_porcentaje) VALUES ('$id_usuario', '$pregunta', '$conclusion', '$porcentaje')");
+        $sqlante = $mysqli->query("SELECT Ant_porcentaje AS porcentaje FROM `antecedentes` WHERE `ID_ANTECEDENTES`=$id_ante");
+        echo "SELECT Ante_porcentaje AS porcentaje FROM `antecedentes` WHERE `ID_ANTECEDENTES`=$id_ante";
+        $id = $sqlante->fetch_assoc();
+        $porcentajeA = $id['porcentaje'];
+        $sql = $mysqli->query("INSERT INTO temporal (ID_USUARIO, PREGUNTA_TEMP, CONCLUSION_TEMP, Temp_porcentaje) VALUES ('$id_usuario', '$pregunta', '$conclusion',$porcentajeA)");
         
 
     }

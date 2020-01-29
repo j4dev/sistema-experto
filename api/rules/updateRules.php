@@ -27,11 +27,11 @@
         $I=0;
         $h = 0;
         $sql="UPDATE reglas SET CONCLUSION='$conclusion', Reg_porcentaje='$re_porcentaje' WHERE ID_REGLA='$regla'";
+        echo $sql;
         $result=$mysqli->query($sql);
 
         foreach ($tipo as $valor) {
             $sql="UPDATE antecedentes SET DESCRIP_ANT='$valor',Ant_porcentaje='$ant_porcentaje[$h]' WHERE ID_REGLA='$regla' AND ID_ANTECEDENTES=$identificador[$h]";
-            echo $sql;
             $result=$mysqli->query($sql);
             $h++;
         }
