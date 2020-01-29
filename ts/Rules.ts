@@ -13,6 +13,7 @@ var inputTotal = 1;
 var inputUp:Array<string>=[];
 
 function addInputU(value:string,idI:string,pAnte:string) {
+    var pi = idI;
     idI = "#i"+idI;
     let antece = document.querySelector<HTMLInputElement>("#updateante");
     let input = document.createElement("INPUT");
@@ -21,10 +22,12 @@ function addInputU(value:string,idI:string,pAnte:string) {
     input.setAttribute("style","text-transform:uppercase;");
     input.setAttribute("value",value);
     antece.appendChild(input);
-    
+
+    var idp = "#p"+pi;
     let inputP = document.createElement("INPUT");
     inputP.setAttribute("type","number");
     inputP.setAttribute("class","form-control col-2");
+    inputP.setAttribute("id",idp);
     inputP.setAttribute("style","text-transform:uppercase; margin-left: 20px;");
     inputP.setAttribute("value",pAnte);
     antece.appendChild(inputP);
@@ -91,7 +94,6 @@ async function addRule() {
         ant_porcentaje: vecporcentaje,
         re_porcentaje: pHipotesis
     };
-    console.log(JSON.stringify(data));
     
     var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
     const response = await fetch(url, {
@@ -137,6 +139,7 @@ async function getAllRules() {
  * Funcion que crea los elementos HTML para listar las reglas en un tabla
  */
 async function listRules() {
+    
     const res = await getAllRules();
     
     var antecedente:string = "";
@@ -202,23 +205,29 @@ async function editRule() {
      */
     
     var antecedentes: Array<any> = [];
+    var probabilidades: Array<any> = [];
     var idI = "";
     
     inputUp.map(function (id:string) {
         idI = "#i"+id.toString();
         var dato = (<HTMLInputElement>document.getElementById(idI)).value.toString();
-        console.log(dato);
-        
+        idI = "#p"+id.toString();
+        var datop = (<HTMLInputElement>document.getElementById(idI)).value.toString();
+        probabilidades.push(datop);
         antecedentes.push(dato);
     });
 
     var hipotesis  = (<HTMLInputElement>document.getElementById(id_hipotesis)).value.toString();
-
+    var probaHipotesis  = (<HTMLInputElement>document.getElementById("p"+id_hipotesis)).value.toString();
     var data = {
         id_regla_mod: id_hipotesis,
         hipotesis: hipotesis,
-        vec_antecedentes: antecedentes
+        identifiers: inputUp,
+        re_porcentaje: probaHipotesis,
+        vec_antecedentes: antecedentes,
+        ant_porcentaje: probabilidades
     };
+    console.log(JSON.stringify(data));
     
     var url = "http://localhost/sistemaexperto/api/rules/updateRules.php";
     const response = await fetch(url, {

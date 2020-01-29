@@ -21,6 +21,7 @@ var id_hipotesis = "";
 var inputTotal = 1;
 var inputUp = [];
 function addInputU(value, idI, pAnte) {
+    var pi = idI;
     idI = "#i" + idI;
     let antece = document.querySelector("#updateante");
     let input = document.createElement("INPUT");
@@ -29,9 +30,11 @@ function addInputU(value, idI, pAnte) {
     input.setAttribute("style", "text-transform:uppercase;");
     input.setAttribute("value", value);
     antece.appendChild(input);
+    var idp = "#p" + pi;
     let inputP = document.createElement("INPUT");
     inputP.setAttribute("type", "number");
     inputP.setAttribute("class", "form-control col-2");
+    inputP.setAttribute("id", idp);
     inputP.setAttribute("style", "text-transform:uppercase; margin-left: 20px;");
     inputP.setAttribute("value", pAnte);
     antece.appendChild(inputP);
@@ -92,7 +95,6 @@ function addRule() {
             ant_porcentaje: vecporcentaje,
             re_porcentaje: pHipotesis
         };
-        console.log(JSON.stringify(data));
         var url = "http://localhost/sistemaexperto/api/rules/insertRules.php";
         const response = yield fetch(url, {
             method: "POST",
@@ -194,19 +196,27 @@ function editRule() {
          * Obtencion de los antecedentes de los input
          */
         var antecedentes = [];
+        var probabilidades = [];
         var idI = "";
         inputUp.map(function (id) {
             idI = "#i" + id.toString();
             var dato = document.getElementById(idI).value.toString();
-            console.log(dato);
+            idI = "#p" + id.toString();
+            var datop = document.getElementById(idI).value.toString();
+            probabilidades.push(datop);
             antecedentes.push(dato);
         });
         var hipotesis = document.getElementById(id_hipotesis).value.toString();
+        var probaHipotesis = document.getElementById("p" + id_hipotesis).value.toString();
         var data = {
             id_regla_mod: id_hipotesis,
             hipotesis: hipotesis,
-            vec_antecedentes: antecedentes
+            identifiers: inputUp,
+            re_porcentaje: probaHipotesis,
+            vec_antecedentes: antecedentes,
+            ant_porcentaje: probabilidades
         };
+        console.log(JSON.stringify(data));
         var url = "http://localhost/sistemaexperto/api/rules/updateRules.php";
         const response = yield fetch(url, {
             method: "POST",
