@@ -1,4 +1,4 @@
-# sistema-experto
+# Sistema Experto
 Este es un proyecto codificado en TypeScript y compilado a JavaScritp con el estandar EMS6.
 ## Ejecución
 Descargar el proyecto y abrir el archivo `index.html` en su navegador.
